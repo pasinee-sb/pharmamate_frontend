@@ -83,10 +83,10 @@ class PharmamateAPI {
 
   // /** Save user profile page. */
 
-  // static async saveProfile(username, data) {
-  //   let res = await this.request(`users/${username}`, data, "patch");
-  //   return res.user;
-  // }
+  static async saveProfile(username, data) {
+    let res = await this.request(`users/${username}`, data, "patch");
+    return res.user;
+  }
 }
 
 export default PharmamateAPI;

@@ -131,7 +131,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider
+        value={{ currentUser, setCurrentUser, token, setToken }}
+      >
         <div className="App">
           <Navigation logout={logout} />
           <Routes login={login} signup={signup} />

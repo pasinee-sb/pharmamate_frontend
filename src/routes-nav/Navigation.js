@@ -29,6 +29,16 @@ function Navigation({ logout }) {
             </NavLink>
           </li> */}
         <li className="nav-item mr-4">
+          <NavLink className="nav-link" to="/med_history">
+            Medication History
+          </NavLink>
+        </li>
+        <li className="nav-item mr-4">
+          <NavLink className="nav-link" to="/health_journal">
+            Health Journal
+          </NavLink>
+        </li>
+        <li className="nav-item mr-4">
           <NavLink className="nav-link" to="/profile">
             Profile
           </NavLink>

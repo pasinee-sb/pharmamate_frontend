@@ -71,15 +71,14 @@ function Homepage() {
         {currentUser ? (
           <h2>Welcome Back, {currentUser.username}!</h2>
         ) : (
-          ""
-          // <p>
-          //   <Link className="btn btn-primary font-weight-bold mr-3" to="/login">
-          //     Log in
-          //   </Link>
-          //   <Link className="btn btn-primary font-weight-bold" to="/signup">
-          //     Sign up
-          //   </Link>
-          // </p>
+          <p>
+            <Link className="btn btn-primary font-weight-bold mr-3" to="/login">
+              Log in
+            </Link>
+            <Link className="btn btn-primary font-weight-bold" to="/signup">
+              Sign up
+            </Link>
+          </p>
         )}
         <SearchForm searchFor={search} />
         {drugDetail ? (

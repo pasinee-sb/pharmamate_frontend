@@ -5,7 +5,7 @@ import Homepage from "../homepage/Homepage";
 // import JobList from "../jobs/JobList";
 // import CompanyDetail from "../companies/CompanyDetail";
 import LoginForm from "../auth/LoginForm";
-// import ProfileForm from "../profiles/ProfileForm";
+import ProfileForm from "../profiles/ProfileForm";
 import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
 
@@ -63,9 +63,9 @@ function Routes({ login, signup }) {
           <ProfileForm />
         </PrivateRoute> */}
 
-        {/* <PrivateRoute path="/profile">
+        <PrivateRoute path="/profile">
           <ProfileForm />
-        </PrivateRoute> */}
+        </PrivateRoute>
 
         <Redirect to="/" />
       </Switch>
