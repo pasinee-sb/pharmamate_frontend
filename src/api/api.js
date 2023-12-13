@@ -22,6 +22,11 @@ class PharmamateAPI {
     const params = method === "get" ? data : {};
 
     try {
+      console.log(`This is url`, url);
+      console.log(`This is method`, method);
+      console.log(`This is data`, data);
+      console.log(`This is params`, params);
+      console.log(`This is headers`, headers);
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
@@ -84,8 +89,30 @@ class PharmamateAPI {
   // /** Save user profile page. */
 
   static async saveProfile(username, data) {
-    let res = await this.request(`users/${username}`, data, "patch");
+    console.log(`This is in the API ${username}  and ${data}`);
+
+    console.log(data);
+
+    let res = await this.request(`users/${username}`, data, "put");
     return res.user;
+  }
+
+  // /*Get medical history
+
+  static async getMedHistory(username) {
+    console.log(`I am hitting getMedHistoy route`);
+    let res = await this.request(`users/${username}/med_history`);
+    console.log(`This is what i got`, res);
+    return res.medication_history;
+  }
+
+  // /*Get health journal
+
+  static async getHealthJournal(username) {
+    console.log(`I am hitting getMedHistoy route`);
+    let res = await this.request(`users/${username}/health_journal`);
+    console.log(`This is what i got`, res);
+    return res.health_journal;
   }
 }
 

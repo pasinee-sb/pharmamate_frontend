@@ -60,8 +60,6 @@ function Homepage() {
     setIsLoading(false);
   }
 
-  console.log(`This is drug Detail:`, drugDetail);
-
   return (
     <div className="Homepage">
       <div className="container text-center">

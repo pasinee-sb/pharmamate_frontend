@@ -56,7 +56,7 @@ function SignupForm({ signup }) {
     let result = await signup(userData);
     if (result.success) {
       console.log("sign up successful");
-      // history.push("/companies");
+      history.push("/");
     } else {
       setFormErrors(result.errors);
     }

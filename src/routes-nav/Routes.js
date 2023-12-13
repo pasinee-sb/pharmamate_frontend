@@ -8,6 +8,8 @@ import LoginForm from "../auth/LoginForm";
 import ProfileForm from "../profiles/ProfileForm";
 import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
+import MedHistoryList from "../med_history/MedHistoryList";
+import HealthJournal from "../health_journal/HealthJournal";
 
 /** Site-wide routes.
  *
@@ -17,7 +19,7 @@ import PrivateRoute from "./PrivateRoute";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function Routes({ login, signup }) {
+function Routes({ login, signup, profile }) {
   console.debug(
     "Routes",
     `login=${typeof login}`,
@@ -30,43 +32,27 @@ function Routes({ login, signup }) {
         <Route exact path="/">
           <Homepage />
         </Route>
-
         <Route exact path="/login">
           <LoginForm login={login} />
         </Route>
-
         <Route exact path="/signup">
           <SignupForm signup={signup} />
         </Route>
-
-        {/* <PrivateRoute exact path="/companies">
-          <CompanyList />
-        </PrivateRoute> */}
-
-        {/* <PrivateRoute exact path="/jobs">
-          <JobList />
-        </PrivateRoute> */}
-
-        {/* <PrivateRoute exact path="/companies/:handle">
-          <CompanyDetail />
-        </PrivateRoute> */}
-        {/* <PrivateRoute exact path="/users/:username">
-          <UserDetail />
-        </PrivateRoute> */}
-        {/* <PrivateRoute path="/users/:username/med_history">
-          <ProfileForm />
-        </PrivateRoute>
-        <PrivateRoute path="/users/:username/health_journal">
-          <ProfileForm />
-        </PrivateRoute>
+        {/* </PrivateRoute>
         <PrivateRoute path="/users/:username/med_history/drug_interaction">
           <ProfileForm />
         </PrivateRoute> */}
+        {/*  */}
 
+        <PrivateRoute path="/med_history">
+          <MedHistoryList />
+        </PrivateRoute>
+        <PrivateRoute path="/health_journal">
+          <HealthJournal />
+        </PrivateRoute>
         <PrivateRoute path="/profile">
           <ProfileForm />
         </PrivateRoute>
-
         <Redirect to="/" />
       </Switch>
     </div>

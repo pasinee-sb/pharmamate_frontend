@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import Alert from "../common/Alert";
-import JoblyApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
 // eslint-disable-next-line
 import useTimedMessage from "../hooks/useTimedMessage";
 import PharmamateAPI from "../api/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 /** Profile editing form.
  *
@@ -31,6 +32,7 @@ function ProfileForm() {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
 
   // switch to use our fancy limited-time-display message hook
   const [saveConfirmed, setSaveConfirmed] = useState(false);
@@ -78,39 +80,28 @@ function ProfileForm() {
       });
 
       if (newToken) {
-        console.log(username);
-        console.log(profileData);
-
-        try {
+        if (newToken) {
           updatedUser = await PharmamateAPI.saveProfile(username, profileData);
-        } catch (err) {
-          debugger;
-
-          setFormErrors(err);
-          return;
+          setCurrentUser(updatedUser);
+          setToken(newToken);
+          resetForm();
+          setSaveConfirmed(true);
         }
-
-        console.log(`this is update user ${updatedUser}`);
-
-        // trigger reloading of user information throughout the site
-        setCurrentUser(updatedUser);
-        setToken(newToken); // Update the token in the context if necessary
-        setFormData((f) => ({
-          ...f,
-          oldPassword: "",
-          password: "",
-          confirmPassword: "",
-        }));
-        setFormErrors([]);
-        setSaveConfirmed(true);
       }
     } catch (err) {
-      debugger;
-
       setFormErrors(err);
       return;
     }
   }
+
+  const resetForm = () => {
+    setFormData({
+      oldPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    });
+    setFormErrors([]);
+  };
 
   /** Handle form data changing */
   function handleChange(evt) {
@@ -120,6 +111,11 @@ function ProfileForm() {
       [name]: value,
     }));
     setFormErrors([]);
+  }
+
+  /**Toggle password visibility */
+  function togglePasswordVisibility() {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
   return (
@@ -132,36 +128,77 @@ function ProfileForm() {
               <label>Username :</label>
               <p className="form-control-plaintext">{formData.username}</p>
             </div>
+
             <div className="form-group">
-              <div className="form-group">
+              <div className="input-group">
                 <label>Old Password to make changes:</label>
-                <input
-                  type="password"
-                  name="oldPassword"
-                  className="form-control"
-                  value={formData.oldPassword}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="oldPassword"
+                    className="form-control"
+                    value={formData.oldPassword}
+                    onChange={handleChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
+
               <div className="form-group">
                 <label>New Password :</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    className="form-control"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
               <div className="form-group">
                 <label>Re-type New Password :</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  className="form-control"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    className="form-control"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
