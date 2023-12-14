@@ -52,7 +52,7 @@ function EditHealthJournal() {
 
   return (
     <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-      <h3>Edit Medication History</h3>
+      <h3>Edit Health Journal</h3>
       <div className="card">
         <div className="card-body">
           <form onSubmit={handleSubmit}>

@@ -8,6 +8,7 @@ import PharmamateAPI from "./api/api";
 import UserContext from "./auth/UserContext";
 import jwt from "jsonwebtoken";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ChatWidget from "./ChatWidget";
 
 // Key name for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "pharmamate-token";
@@ -137,6 +138,7 @@ function App() {
         <div className="App">
           <Navigation logout={logout} />
           <Routes login={login} signup={signup} />
+          <ChatWidget />
         </div>
       </UserContext.Provider>
     </BrowserRouter>
