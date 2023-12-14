@@ -16,32 +16,40 @@ function EditMedHistory() {
     startDate: "",
     stopDate: "",
   });
+
   const [formErrors, setFormErrors] = useState([]);
   const [saveConfirmed, setSaveConfirmed] = useState(false);
 
   useEffect(() => {
-    console.log(medId);
-    // Assuming medId is a string, convert it to the same type as your medication_history ids
-    const medToEdit = currentUser.medication_history.find(
-      (med) => med.id === medIdNum
-    );
-    console.log(medToEdit);
-    console.log(currentUser.medication_history);
-    if (medToEdit) {
-      setFormData({
-        drug: medToEdit.drug_name,
-        status: medToEdit.status,
-        startDate: medToEdit.start_date.split("T")[0], // Extracts date part in 'YYYY-MM-DD' format
-        stopDate: medToEdit.stop_date ? medToEdit.stop_date.split("T")[0] : "", // Checks for null before splitting
-      });
+    async function fetchData() {
+      const medToEdit = await PharmamateAPI.getMedById(username, medIdNum);
+      if (medToEdit) {
+        setFormData({
+          drug: medToEdit.drug_name,
+          status: medToEdit.status,
+          startDate: medToEdit.start_date.split("T")[0], // Extracts date part in 'YYYY-MM-DD' format
+          stopDate: medToEdit.stop_date
+            ? medToEdit.stop_date.split("T")[0]
+            : "", // Checks for null before splitting
+        });
+      }
     }
+    fetchData();
   }, [currentUser, medId]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    const formToSubmit = {
+      status: formData.status,
+      startDate: formData.startDate,
+      stopDate: formData.stopDate,
+    };
+
     try {
+      console.log("This is stopDate");
+      console.log(formData.stopDate);
       // Assuming your API method is named editMedHistory and it takes these parameters
-      await PharmamateAPI.editMedHistory(username, formData, medIdNum);
+      await PharmamateAPI.editMedHistory(username, formToSubmit, medIdNum);
       setSaveConfirmed(true);
       setFormErrors([]);
     } catch (err) {

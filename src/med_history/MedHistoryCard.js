@@ -10,8 +10,10 @@ import "./CompanyCard.css";
  * CompanyList -> CompanyCard
  */
 
-function EditMedHistory({ id, name, status, start, stop }) {
+function MedHistoryCard({ id, name, status, start, stop }) {
   console.debug("MedHistoryCard");
+  start = start.split("T")[0];
+  stop = stop ? stop.split("T")[0] : stop;
 
   return (
     <div className="card-body">
@@ -25,7 +27,6 @@ function EditMedHistory({ id, name, status, start, stop }) {
       </h6>
       <h6 className="card-title">Start Date: {start}</h6>
       <h6 className="card-title">Stop Date: {stop}</h6>
-      <h6 className="card-title">Id: {id}</h6>
 
       <div className="link-container">
         <Link to={`/med_history/edit/${id}`} className="btn btn-sm btn-primary">
@@ -43,4 +44,4 @@ function EditMedHistory({ id, name, status, start, stop }) {
   );
 }
 
-export default EditMedHistory;
+export default MedHistoryCard;

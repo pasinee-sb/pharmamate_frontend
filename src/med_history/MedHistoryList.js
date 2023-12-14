@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "../common/LoadingSpinner";
 import MedHistoryCard from "./MedHistoryCard";
+import { Link } from "react-router-dom";
 
 function MedHistoryList() {
   const { currentUser } = useContext(UserContext);
@@ -27,6 +28,9 @@ function MedHistoryList() {
   if (!meds) return <LoadingSpinner />;
   return (
     <div>
+      <Link to={`/med_history/add`} className="btn btn-sm btn-info">
+        Add drug
+      </Link>
       {meds.length > 0 ? (
         meds.map((med) => (
           <MedHistoryCard

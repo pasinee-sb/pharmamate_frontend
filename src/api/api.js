@@ -97,7 +97,7 @@ class PharmamateAPI {
     return res.user;
   }
 
-  // /*Get medical history
+  // /*Get medication history
 
   static async getMedHistory(username) {
     console.log(`I am hitting getMedHistoy route`);
@@ -106,8 +106,28 @@ class PharmamateAPI {
     return res.medication_history;
   }
 
-  // /*Edit medical history
+  // /* Get specific medication history
+
+  static async getMedById(username, medId) {
+    console.log(`I am hitting getMedById route`);
+    let res = await this.request(`users/${username}/med_history/${medId}`);
+    console.log(`This is what i got`, res);
+    return res.medication_history;
+  }
+
+  // /* Add medication history
+
+  static async addMedHistory(username, data) {
+    console.log(`I am hitting addMedHistoy route`);
+    data.stopDate = data.stopDate || null;
+    let res = await this.request(`users/${username}/med_history`, data, "post");
+    console.log(`This is what i got`, res);
+    return res.medication_history;
+  }
+
+  // /*Edit medication history
   static async editMedHistory(username, data, medIdNum) {
+    data.stopDate = data.stopDate || null;
     console.log(`I am hitting editMedHistory route`);
     let res = await this.request(
       `users/${username}/med_history/${medIdNum}`,
@@ -117,12 +137,56 @@ class PharmamateAPI {
     return res.medication_history;
   }
 
+  // /*Delete medication history
+  static async deleteMedHistory(username, medIdNum) {
+    console.log(`I am hitting DeleteMedHistory route`);
+    let res = await this.request(
+      `users/${username}/med_history/${medIdNum}`,
+      {},
+      "delete"
+    );
+    return res.medication_history;
+  }
+
   // /*Get health journal
 
   static async getHealthJournal(username) {
     console.log(`I am hitting getMedHistoy route`);
+
     let res = await this.request(`users/${username}/health_journal`);
+    return res.health_journal;
+  }
+  // /* Add Health Journal
+
+  static async addHealthJournal(username, data) {
+    console.log(`I am hitting addMedHistoy route`);
+
+    let res = await this.request(
+      `users/${username}/health_journal`,
+      data,
+      "post"
+    );
     console.log(`This is what i got`, res);
+    return res.health_journal;
+  }
+  // /*Edit medication history
+  static async editHealthJournal(username, data) {
+    console.log(`I am hitting editHealthJournal route`);
+    let res = await this.request(
+      `users/${username}/health_journal`,
+      data,
+      "put"
+    );
+    return res.health_journal;
+  }
+  // /*Delete medication history
+  static async deleteHealthJournal(username) {
+    console.log(`I am hitting DeleteMedHistory route`);
+    let res = await this.request(
+      `users/${username}/health_journal`,
+      {},
+      "delete"
+    );
     return res.health_journal;
   }
 }

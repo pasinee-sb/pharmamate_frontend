@@ -12,36 +12,57 @@ import LoadingSpinner from "../common/LoadingSpinner";
 
 function HealthJournal() {
   const { currentUser } = useContext(UserContext);
-  const [myjournal, setJournal] = useState([]);
-  const user = currentUser.username;
+  const [journal, setJournal] = useState("");
+  const [error, setError] = useState(null);
+  const username = currentUser.username;
 
-  useEffect(function getJournalOnMount() {
+  useEffect(() => {
+    async function getJournal() {
+      try {
+        console.log("I am here fetching MedList");
+        const myJournal = await PharmamateAPI.getHealthJournal(username);
+
+        console.log(`This is my journal `, myJournal);
+        setError([]);
+        setJournal(myJournal.journal);
+      } catch (error) {
+        setError([error.message]);
+      }
+    }
     getJournal();
-  }, []);
-  async function getJournal() {
-    console.log("I am here fetching MedList");
-    const myJournal = await PharmamateAPI.getHealthJournal(user);
-    setJournal(myJournal);
-  }
-  if (!myjournal) return <LoadingSpinner />;
+  }, [username]);
+
+  // if (journal === undefined) return <LoadingSpinner />;
   return (
     <div>
-      {myjournal ? (
-        <div>{myjournal.journal} </div>
+      {journal ? (
+        <>
+          <div>{journal}</div>
+          <div>
+            <Link
+              to={`/health_journal/edit`}
+              className="btn btn-sm btn-primary"
+            >
+              Edit journal
+            </Link>
+          </div>
+          <div>
+            <Link
+              to={`/health_journal/delete`}
+              className="btn btn-sm btn-danger"
+            >
+              Delete journal
+            </Link>
+          </div>
+        </>
       ) : (
         <div>
-          <h1>"No health Journal found"</h1>
+          <Link to={`/health_journal/add`} className="btn btn-sm btn-info">
+            Add Health Journal
+          </Link>
+          <p>Journal not found</p>
         </div>
       )}
-      <div className="link-container">
-        <Link to={`/health_journal/edit`} className="btn btn-sm btn-primary">
-          Edit journal
-        </Link>
-        {""}
-        <Link to={`/health_journal/delete`} className="btn btn-sm btn-danger ">
-          Delete journal
-        </Link>
-      </div>
     </div>
   );
 }
