@@ -1,0 +1,7 @@
+.article-image {
+  border-color: blue;
+  border-width: 5rem;
+  width: 50%; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Optional: Use this to ensure the image covers the area */
+}

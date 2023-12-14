@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../auth/UserContext";
 import "./Navigation.css";
+import pharmamateImage from "../pharmamate.png";
 
 /** Navigation bar for site. Shows up on every page.
  *
@@ -17,35 +18,24 @@ function Navigation({ logout }) {
 
   function loggedInNav() {
     return (
-      <ul className="navbar-nav ml-auto">
-        {/* <li className="nav-item mr-4">
-            <NavLink className="nav-link" to="/companies">
-              Companies
-            </NavLink>
-          </li>
-          <li className="nav-item mr-4">
-            <NavLink className="nav-link" to="/jobs">
-              Jobs
-            </NavLink>
-          </li> */}
-
-        <li className="nav-item mr-4">
-          <NavLink className="nav-link" to="/med_history">
+      <ul className="nav justify-content-end">
+        <li className="nav-item ">
+          <NavLink className="nav-link active" to="/med_history">
             Medication History
           </NavLink>
         </li>
         <li className="nav-item mr-4">
-          <NavLink className="nav-link" to="/health_journal">
+          <NavLink className="nav-link active" to="/health_journal">
             Health Journal
           </NavLink>
         </li>
         <li className="nav-item mr-4">
-          <NavLink className="nav-link" to="/profile">
+          <NavLink className="nav-link active" to="/profile">
             Profile
           </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/" onClick={logout}>
+          <Link className="nav-link active" to="/" onClick={logout}>
             Log out {currentUser.first_name || currentUser.username}
           </Link>
         </li>
@@ -55,8 +45,8 @@ function Navigation({ logout }) {
 
   function loggedOutNav() {
     return (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item mr-4">
+      <ul className="nav justify-content-end">
+        <li className="nav-item ">
           <NavLink className="nav-link" to="/login">
             Login
           </NavLink>
@@ -71,11 +61,21 @@ function Navigation({ logout }) {
   }
 
   return (
-    <nav className="Navigation navbar navbar-expand-md">
-      <Link className="navbar-brand" to="/">
-        PharmaMate
-      </Link>
-      {currentUser ? loggedInNav() : loggedOutNav()}
+    <nav className="navbar bg-body-tertiary bg-success-subtle">
+      <div class="container">
+        <Link className="navbar-brand" to="/">
+          {
+            <img
+              src={pharmamateImage}
+              class="rounded"
+              width="auto"
+              height="60"
+              alt="Pharmamate"
+            />
+          }
+        </Link>
+        {currentUser ? loggedInNav() : loggedOutNav()}
+      </div>
     </nav>
   );
 }

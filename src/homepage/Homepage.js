@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Articles from "../Articles";
+import Articles from "./Articles";
 // import "./Homepage.css";
 import UserContext from "../auth/UserContext";
 import SearchForm from "../common/SearchForm";
@@ -66,18 +66,6 @@ function Homepage() {
         <h1 className="mb-4 font-weight-bold">PharmaMate</h1>
         <p className="lead">For every med you take</p>
 
-        {currentUser ? (
-          <h2>Welcome Back, {currentUser.username}!</h2>
-        ) : (
-          <p>
-            <Link className="btn btn-primary font-weight-bold mr-3" to="/login">
-              Log in
-            </Link>
-            <Link className="btn btn-primary font-weight-bold" to="/signup">
-              Sign up
-            </Link>
-          </p>
-        )}
         <SearchForm searchFor={search} />
         {drugDetail ? (
           <div>

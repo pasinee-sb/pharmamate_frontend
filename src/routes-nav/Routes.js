@@ -44,11 +44,7 @@ function Routes({ login, signup }) {
         <Route exact path="/signup">
           <SignupForm signup={signup} />
         </Route>
-        {/* </PrivateRoute>
-        <PrivateRoute path="/users/:username/med_history/drug_interaction">
-          <ProfileForm />
-        </PrivateRoute> */}
-        {/*  */}
+
         <PrivateRoute path="/med_history/edit/:medId">
           <EditMedHistory />
         </PrivateRoute>
@@ -76,6 +72,7 @@ function Routes({ login, signup }) {
         <PrivateRoute path="/profile">
           <ProfileForm />
         </PrivateRoute>
+
         <Redirect to="/" />
       </Switch>
     </div>

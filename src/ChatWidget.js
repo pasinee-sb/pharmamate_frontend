@@ -1,3 +1,4 @@
+/* global ChatComponent */
 import React, { useEffect } from "react";
 
 const ChatWidget = () => {

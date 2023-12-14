@@ -37,7 +37,11 @@ function HealthJournal() {
     <div>
       {journal ? (
         <>
-          <div>{journal}</div>
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">{journal}</h5>
+            </div>
+          </div>
           <div>
             <Link
               to={`/health_journal/edit`}

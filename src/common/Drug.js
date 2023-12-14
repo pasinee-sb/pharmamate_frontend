@@ -14,7 +14,6 @@ function Drug({ drugDetail }) {
   //   console.debug("Drug", logoUrl);
 
   return (
-    // <Link className="CompanyCard card" to={`/companies/${handle}`}>
     <div className="card-body">
       {drugDetail.openfda.brand_name[0].toLowerCase() !==
       drugDetail.openfda.generic_name[0].toLowerCase() ? (

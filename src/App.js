@@ -7,8 +7,10 @@ import LoadingSpinner from "./common/LoadingSpinner";
 import PharmamateAPI from "./api/api";
 import UserContext from "./auth/UserContext";
 import jwt from "jsonwebtoken";
-import "bootstrap/dist/css/bootstrap.min.css";
 import ChatWidget from "./ChatWidget";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // Key name for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "pharmamate-token";
