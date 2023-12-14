@@ -10,6 +10,7 @@ import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
 import MedHistoryList from "../med_history/MedHistoryList";
 import HealthJournal from "../health_journal/HealthJournal";
+import EditMedHistory from "../med_history/EditMedHistory";
 
 /** Site-wide routes.
  *
@@ -19,7 +20,7 @@ import HealthJournal from "../health_journal/HealthJournal";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function Routes({ login, signup, profile }) {
+function Routes({ login, signup }) {
   console.debug(
     "Routes",
     `login=${typeof login}`,
@@ -43,10 +44,13 @@ function Routes({ login, signup, profile }) {
           <ProfileForm />
         </PrivateRoute> */}
         {/*  */}
-
+        <PrivateRoute path="/med_history/edit/:medId">
+          <EditMedHistory />
+        </PrivateRoute>
         <PrivateRoute path="/med_history">
           <MedHistoryList />
         </PrivateRoute>
+
         <PrivateRoute path="/health_journal">
           <HealthJournal />
         </PrivateRoute>

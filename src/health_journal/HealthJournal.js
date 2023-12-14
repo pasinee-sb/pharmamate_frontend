@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
+import { Link } from "react-router-dom";
 
 // eslint-disable-next-line
 import useTimedMessage from "../hooks/useTimedMessage";
@@ -32,6 +33,15 @@ function HealthJournal() {
           <h1>"No health Journal found"</h1>
         </div>
       )}
+      <div className="link-container">
+        <Link to={`/health_journal/edit`} className="btn btn-sm btn-primary">
+          Edit journal
+        </Link>
+        {""}
+        <Link to={`/health_journal/delete`} className="btn btn-sm btn-danger ">
+          Delete journal
+        </Link>
+      </div>
     </div>
   );
 }

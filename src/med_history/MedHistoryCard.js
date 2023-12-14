@@ -10,17 +10,37 @@ import "./CompanyCard.css";
  * CompanyList -> CompanyCard
  */
 
-function MedHistoryCard({ name, status, start, stop }) {
+function EditMedHistory({ id, name, status, start, stop }) {
   console.debug("MedHistoryCard");
 
   return (
     <div className="card-body">
       <h6 className="card-title">Drug: {name}</h6>
-      <h6 className="card-title">Status: {status}</h6>
+      <h6
+        className={`card-title ${
+          status === "active" ? "text-info" : "text-warning"
+        }`}
+      >
+        Status: {status}
+      </h6>
       <h6 className="card-title">Start Date: {start}</h6>
       <h6 className="card-title">Stop Date: {stop}</h6>
+      <h6 className="card-title">Id: {id}</h6>
+
+      <div className="link-container">
+        <Link to={`/med_history/edit/${id}`} className="btn btn-sm btn-primary">
+          Edit drug
+        </Link>
+        {""}
+        <Link
+          to={`/med_history/delete/${id}`}
+          className="btn btn-sm btn-danger "
+        >
+          Delete drug
+        </Link>
+      </div>
     </div>
   );
 }
 
-export default MedHistoryCard;
+export default EditMedHistory;

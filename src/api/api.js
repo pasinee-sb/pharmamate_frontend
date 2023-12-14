@@ -106,6 +106,17 @@ class PharmamateAPI {
     return res.medication_history;
   }
 
+  // /*Edit medical history
+  static async editMedHistory(username, data, medIdNum) {
+    console.log(`I am hitting editMedHistory route`);
+    let res = await this.request(
+      `users/${username}/med_history/${medIdNum}`,
+      data,
+      "put"
+    );
+    return res.medication_history;
+  }
+
   // /*Get health journal
 
   static async getHealthJournal(username) {

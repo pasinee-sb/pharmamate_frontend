@@ -31,6 +31,7 @@ function MedHistoryList() {
         meds.map((med) => (
           <MedHistoryCard
             key={med.id}
+            id={med.id}
             name={med.drug_name}
             status={med.status}
             start={med.start_date}

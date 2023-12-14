@@ -164,17 +164,6 @@ function ProfileForm() {
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <div className="input-group-append">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={togglePasswordVisibility}
-                    >
-                      <FontAwesomeIcon
-                        icon={showPassword ? faEyeSlash : faEye}
-                      />
-                    </button>
-                  </div>
                 </div>
               </div>
               <div className="form-group">
@@ -187,17 +176,6 @@ function ProfileForm() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                   />
-                  <div className="input-group-append">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={togglePasswordVisibility}
-                    >
-                      <FontAwesomeIcon
-                        icon={showPassword ? faEyeSlash : faEye}
-                      />
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
