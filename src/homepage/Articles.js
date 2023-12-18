@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
-import "./Article.css";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "./Article.css";
+import ArticleImage from "./Article.png";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
@@ -38,16 +40,25 @@ function Articles() {
       <h2>Today's health articles</h2>
       <Carousel showThumbs={false}>
         {articleChunks.map((chunk, index) => (
-          <div className="d-flex" key={index}>
+          <div className="d-flex " key={index}>
             {chunk.map((article, articleIndex) => (
-              <div class="card flex-grow-1 me-1" key={articleIndex}>
+              <div
+                class="card carousel-card flex-grow-1 me-1"
+                key={articleIndex}
+              >
                 <div class="card-body">
-                  {article.urlToImage && (
-                    <img
-                      class="bd-placeholder-img card-img-top article-image"
-                      src={article.urlToImage}
+                  {article.urlToImage ? (
+                    <div
+                      className="article-image"
+                      style={{ backgroundImage: `url(${article.urlToImage})` }}
                       alt={article.title}
-                    />
+                    ></div>
+                  ) : (
+                    <div
+                      className="article-image"
+                      style={{ backgroundImage: `url(${ArticleImage})` }}
+                      alt={article.title}
+                    ></div>
                   )}
                   <h5 class="card-title">{article.title}</h5>
 

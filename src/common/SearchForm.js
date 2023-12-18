@@ -5,7 +5,7 @@ import "./SearchForm.css";
 
  */
 
-function SearchForm({ searchFor }) {
+function SearchForm({ onSearchSubmit }) {
   console.debug("SearchForm", "searchFor=", typeof searchFor);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,7 +14,7 @@ function SearchForm({ searchFor }) {
   function handleSubmit(evt) {
     // take care of accidentally trying to search for just spaces
     evt.preventDefault();
-    searchFor(searchTerm.trim() || undefined);
+    onSearchSubmit(searchTerm.trim() || undefined);
     setSearchTerm("");
   }
 

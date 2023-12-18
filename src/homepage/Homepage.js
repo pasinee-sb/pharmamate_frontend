@@ -1,52 +1,25 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Articles from "./Articles";
-// import "./Homepage.css";
+import "./Article.css";
 import UserContext from "../auth/UserContext";
 import SearchForm from "../common/SearchForm";
-import PharmamateAPI from "../api/api";
 import Drug from "../common/Drug";
 import LoadingSpinner from "../common/LoadingSpinner";
-
-/** Homepage of site.
- *
- * Shows welcome message or login/register buttons.
- *
- * Routed at /
- *
- * Routes -> Homepage
- */
+import PharmamateAPI from "../api/api";
 
 function Homepage() {
-  console.debug("Homepage");
-
   const { currentUser } = useContext(UserContext);
-  console.debug("Homepage", "currentUser=", currentUser);
   const [drugDetail, setDrugDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // Function to parse query parameters
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-
-  const query = useQuery();
-  const searchQuery = query.get("drug");
-
-  useEffect(() => {
-    if (searchQuery) {
-      search(searchQuery);
-    }
-  }, [searchQuery]);
+  const history = useHistory();
 
   async function search(drug) {
     setIsLoading(true);
     setError(null);
     try {
       let response = await PharmamateAPI.getDrug(drug);
-      console.log("Search results:", response.response);
-
       if (response.response) {
         setDrugDetail(response.response);
       } else {
@@ -56,8 +29,14 @@ function Homepage() {
     } catch (err) {
       setError(err.toString());
       setDrugDetail(null);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
+  }
+
+  function handleSearchSubmit(searchTerm) {
+    search(searchTerm);
+    history.push(`/search?drug=${encodeURIComponent(searchTerm)}`);
   }
 
   return (
@@ -66,18 +45,23 @@ function Homepage() {
         <h1 className="mb-4 font-weight-bold">PharmaMate</h1>
         <p className="lead">For every med you take</p>
 
-        <SearchForm searchFor={search} />
-        {drugDetail ? (
-          <div>
-            <h1>Drug Details</h1>
-            <Drug key={drugDetail.id} drugDetail={drugDetail} />
-          </div>
-        ) : isLoading ? ( // Show loading spinner while data is loading
+        <SearchForm onSearchSubmit={handleSearchSubmit} />
+        {isLoading ? (
           <LoadingSpinner />
+        ) : error ? (
+          <p className="text-danger">{error}</p>
         ) : (
-          // Render search results or default content
-          <Articles />
+          drugDetail &&
+          drugDetail.length > 0 && (
+            <div>
+              <h1>Drug Details</h1>
+              {drugDetail.map((detail, index) => (
+                <Drug key={index} drugDetail={detail} />
+              ))}
+            </div>
+          )
         )}
+        <Articles />
       </div>
     </div>
   );

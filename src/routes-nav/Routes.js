@@ -16,6 +16,7 @@ import AddMedHistory from "../med_history/AddMedHistory";
 import AddHealthJournal from "../health_journal/AddHealthJournal";
 import EditHealthJournal from "../health_journal/EditHealthJournal";
 import DeleteHealthJournal from "../health_journal/DeleteHealthJournal";
+import SearchResultsPage from "../homepage/SearchResultPage";
 
 /** Site-wide routes.
  *
@@ -43,6 +44,9 @@ function Routes({ login, signup }) {
         </Route>
         <Route exact path="/signup">
           <SignupForm signup={signup} />
+        </Route>
+        <Route exact path="/search">
+          <SearchResultsPage />
         </Route>
 
         <PrivateRoute path="/med_history/edit/:medId">

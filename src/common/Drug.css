@@ -1,3 +1,15 @@
+.drug-thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.drug-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Additional styling for the card and its content */
 .article-image {
   height: 200px; /* Adjust the height as needed */
   background-size: cover; /* Cover ensures that the entire div is filled */
@@ -7,6 +19,18 @@
 .carousel-card {
   width: 300px; /* Set your desired width */
   margin-right: 15px; /* Optional: Add some space between cards */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Adjust as needed for spacing */
+}
+
+.card {
+  flex: 0 0 30%; /* Adjust width as needed */
+  margin: 10px; /* Spacing between cards */
+  /* Add more styling for the card */
 }
 
 /* 
@@ -37,23 +61,3 @@ Adjust the size  */
   margin-top: 0;
   padding: 5px;
 }
-
-/* Adjust the color */
-/* .carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-image: url("path-to-your-custom-arrow-image.svg");
-} */
-
-/* Adjust the position */
-/* .carousel-control-prev {
-  left: 10px;
-}
-.carousel-control-next {
-  right: 10px;
-}
-
-/* Additional styling (optional) */
-/* .carousel-control-prev:hover,
-.carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-} */
