@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PharmamateAPI from "../api/api";
-import Drug from "../common/Drug";
-import LoadingSpinner from "../common/LoadingSpinner";
-import SearchForm from "../common/SearchForm";
+import Drug from "./Drug";
+import LoadingSpinner from "./LoadingSpinner";
+import SearchForm from "./SearchForm";
 import UserContext from "../auth/UserContext";
 import { useHistory } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";

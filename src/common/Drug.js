@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./Drug.css";
 import axios from "axios";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Drug({ drugDetail }) {
   const [imageUrls, setImageUrls] = useState([]);
@@ -80,17 +81,15 @@ function Drug({ drugDetail }) {
           <p>Manufacturer: {drugDetail.openfda.manufacturer_name[0]}</p>
           <p>NDC: {drugDetail.openfda.product_ndc[0]}</p>
           <p>set_id: {drugDetail.set_id}</p>
-          {/* <a
-            href={`https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${drugDetail.set_id}`}
-            target={`_blank`}
+
+          <Link
+            to={{
+              pathname: `/drug/${drugDetail.set_id}`,
+              state: { detail: drugDetail },
+            }}
           >
-            {" "}
-            Package detail
-          </a> */}
-          <button onClick={toggleDetail}>
-            {" "}
             {moreDetail ? "Less Detail" : "More detail"}{" "}
-          </button>
+          </Link>
         </div>
       </div>
       {moreDetail && (

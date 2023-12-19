@@ -2,3 +2,6 @@
   box-shadow: none;
   border-color: #ced4da;
 }
+.italic-placeholder {
+  font-style: italic;
+}
