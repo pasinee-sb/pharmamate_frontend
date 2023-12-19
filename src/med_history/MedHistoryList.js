@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
+import ApexCharts from "apexcharts";
 
 // eslint-disable-next-line
 import useTimedMessage from "../hooks/useTimedMessage";
@@ -24,6 +25,37 @@ function MedHistoryList() {
     console.log("I am here fetching MedList");
     const myMeds = await PharmamateAPI.getMedHistory(user);
     setMedList(myMeds);
+    renderChart(myMeds);
+  }
+  async function renderChart(medData) {
+    const chartData = medData.map((med) => {
+      return {
+        x: med.drug_name,
+        y: [
+          new Date(med.start_date.split("T")[0]).getTime(),
+          med.stop_date
+            ? new Date(med.stop_date.split("T")[0]).getTime()
+            : new Date().getTime(),
+        ],
+      };
+    });
+    const options = {
+      chart: {
+        type: "rangeBar",
+        height: 350,
+      },
+      series: [{ data: chartData }],
+      xaxis: {
+        type: "dateTime",
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+        },
+      },
+    };
+    let chart = new ApexCharts(document.querySelector(".chart"), options);
+    chart.render();
   }
   if (!meds) return <LoadingSpinner />;
   return (
@@ -31,6 +63,7 @@ function MedHistoryList() {
       <Link to={`/med_history/add`} className="btn btn-sm btn-info">
         Add drug
       </Link>
+      <div className="card chart"></div>
       {meds.length > 0 ? (
         meds.map((med) => (
           <MedHistoryCard
