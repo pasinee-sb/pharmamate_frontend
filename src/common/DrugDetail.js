@@ -6,7 +6,6 @@ function DrugDetail() {
   const location = useLocation();
   const drugDetail = location.state?.detail;
   console.log(`This is drug detail `, drugDetail);
-  const { indications_and_usage, contraindications } = drugDetail;
 
   // Define state for handling super long text expansion
   const [expandedSections, setExpandedSections] = useState({});
@@ -222,13 +221,13 @@ function DrugDetail() {
     <div className="container">
       <div className="d-flex justify-content-end">
         <a
-          className="btn btn-success mb-3"
+          className="btn btn-danger  mb-3"
           href={`https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=${drugDetail.set_id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i className="fa fa-download"></i> Download full package insert in PDF
-          file here
+          <i class="fa-sharp fa-regular fa-file-pdf fa-2xl"></i> Download full
+          package insert
         </a>
       </div>
 
@@ -244,6 +243,8 @@ function DrugDetail() {
         <div>
           <h3>Generic Name</h3>
           <p> {drugDetail.openfda.generic_name[0]}</p>
+          <h3>Manufacturer</h3>
+          <p> {drugDetail.openfda.manufacturer_name[0]}</p>
         </div>
       )}
       {[
@@ -265,7 +266,9 @@ function DrugDetail() {
         if (value) {
           return (
             <div key={sectionKey}>
-              <h3>{sectionKey.replace(/_/g, " ").toUpperCase()}</h3>
+              <h3 className="mt-3">
+                {sectionKey.replace(/_/g, " ").toUpperCase()}
+              </h3>
               {renderContent(sectionKey, value)}
             </div>
           );

@@ -76,26 +76,26 @@ function SignupForm({ signup }) {
   return (
     <div className="SignupForm">
       <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h2 className="mb-3">Sign Up</h2>
+        <h2 className="mb-3 display-4">Sign Up</h2>
         <div className="card">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Username</label>
+                <label className="text-primary mb-3">Username :</label>
                 <input
                   name="username"
-                  className="form-control"
+                  className="form-control text-primary mb-3 "
                   value={formData.username}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label>Password</label>
+                <label className="text-primary mb-3">Password : </label>
                 <div className="input-group">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    className="form-control"
+                    className="form-control mb-3"
                     value={formData.password}
                     onChange={handleChange}
                   />
@@ -113,11 +113,11 @@ function SignupForm({ signup }) {
                 </div>
               </div>
               <div className="form-group">
-                <label>Repeat Password</label>
+                <label className=" text-primary mb-3">Repeat Password :</label>
                 <input
                   type="password"
                   name="repeatPassword"
-                  className="form-control"
+                  className="form-control   mb-3"
                   value={formData.repeatPassword}
                   onChange={handleChange}
                 />

@@ -48,6 +48,15 @@ function EditMedHistory() {
     try {
       console.log("This is stopDate");
       console.log(formData.stopDate);
+      // Validate Status and Stop Date according to your DB constraints
+      if (formData.status === "active" && formData.stopDate) {
+        setFormErrors(["An active drug should not have a stop date."]);
+        return;
+      }
+      if (formData.status === "inactive" && !formData.stopDate) {
+        setFormErrors(["Stop date must be provided for an inactive drug."]);
+        return;
+      }
       // Assuming your API method is named editMedHistory and it takes these parameters
       await PharmamateAPI.editMedHistory(username, formToSubmit, medIdNum);
       setSaveConfirmed(true);
@@ -65,21 +74,22 @@ function EditMedHistory() {
     }));
   };
 
+  const today = new Date().toISOString().split("T")[0];
   return (
     <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-      <h3>Edit Medication History</h3>
+      <h2 className="display-5">Edit Medication </h2>
       <div className="card">
         <div className="card-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Drug : </label>
+              <label className="text-primary">Drug : </label>
               <p className="form-control-plaintext">{formData.drug}</p>
             </div>
 
-            <div className="form-group">
+            <div className="form-group ">
               <div className="input-group">
-                <label>Status : </label>
-                <div className="input-group">
+                <label className=" mb-3  text-primary ">Status : </label>
+                <div className="input-group mb-3 ">
                   <select
                     name="status"
                     id="status"
@@ -91,30 +101,31 @@ function EditMedHistory() {
                   </select>
                 </div>
               </div>
+            </div>
 
-              <div className="form-group">
-                <label>Start Date :</label>
-                <div className="input-group">
-                  <input
-                    type="date"
-                    name="startDate"
-                    id="start_date"
-                    value={formData.startDate}
-                    onChange={handleChange}
-                  />
-                </div>
+            <div className="form-group">
+              <label className=" mb-3  text-primary">Start Date :</label>
+              <div className="input-group  mb-3">
+                <input
+                  type="date"
+                  name="startDate"
+                  id="start_date"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                />
               </div>
-              <div className="form-group">
-                <label>Stop Date :</label>
-                <div className="input-group">
-                  <input
-                    type="date"
-                    name="stopDate"
-                    id="start_date"
-                    value={formData.stopDate}
-                    onChange={handleChange}
-                  />
-                </div>
+            </div>
+            <div className="form-group">
+              <label className="  mb-3 text-primary ">Stop Date :</label>
+              <div className="input-group  mb-3">
+                <input
+                  type="date"
+                  name="stopDate"
+                  id="start_date"
+                  value={formData.stopDate}
+                  onChange={handleChange}
+                  max={today}
+                />
               </div>
             </div>
 

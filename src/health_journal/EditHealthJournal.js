@@ -52,15 +52,17 @@ function EditHealthJournal() {
 
   return (
     <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-      <h3>Edit Health Journal</h3>
+      <h3 className="display-4">Edit Journal</h3>
       <div className="card">
         <div className="card-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <div className="input-group">
-                <label>Journal : </label>
-                <div className="input-group">
-                  <input
+                <label className="mb-3 text-primary">Journal : </label>
+                <div className="input-group mb-3">
+                  <textarea
+                    rows="10"
+                    cols="50"
                     name="journal"
                     id="journal"
                     value={formData.journal}

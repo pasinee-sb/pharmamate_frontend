@@ -1,0 +1,23 @@
+.active {
+  color: #008ffb;
+}
+
+.inactive {
+  color: #ff4560;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around; /* This will space out your cards evenly */
+  align-items: center; /* This will align items vertically */
+  flex-wrap: wrap; /* This allows cards to wrap onto the next line if the container is too narrow */
+}
+.card {
+  position: relative; /* Needed if using absolute positioning for link-container */
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between; /* This spreads out the buttons */
+  padding: 0.5rem; /* Adjust padding as needed */
+}

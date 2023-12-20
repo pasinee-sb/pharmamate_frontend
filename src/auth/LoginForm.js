@@ -55,16 +55,16 @@ function LoginForm({ login }) {
   return (
     <div className="LoginForm">
       <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h3 className="mb-3">Log In</h3>
+        <h3 className="display-4 mb-3">Log In</h3>
 
         <div className="card">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Username</label>
+                <label className="text-primary mb-3">Username :</label>
                 <input
                   name="username"
-                  className="form-control"
+                  className="form-control mb-3"
                   value={formData.username}
                   onChange={handleChange}
                   autoComplete="username"
@@ -72,11 +72,11 @@ function LoginForm({ login }) {
                 />
               </div>
               <div className="form-group">
-                <label>Password</label>
+                <label className="text-primary mb-3">Password :</label>
                 <input
                   type="password"
                   name="password"
-                  className="form-control"
+                  className="form-control mb-3"
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"

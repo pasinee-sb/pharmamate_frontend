@@ -1,5 +1,6 @@
 /* global ChatComponent */
 import React, { useEffect } from "react";
+import "./ChatWidget.css";
 
 const ChatWidget = () => {
   useEffect(() => {

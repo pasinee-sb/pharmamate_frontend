@@ -37,7 +37,7 @@ function SearchForm({ onSearchSubmit }) {
           onChange={handleChange}
         />
         <button type="submit" className="btn btn-lg btn-primary">
-          Search
+          <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
     </div>

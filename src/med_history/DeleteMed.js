@@ -22,11 +22,22 @@ function DeleteMed() {
   };
 
   return (
-    <div>
-      <h3>Delete Medication History</h3>
-      {error && <Alert type="danger" messages={[error]} />}
-      <p>Are you sure you want to delete this medication history?</p>
-      <button onClick={handleDelete}>Delete</button>
+    <div className="d-flex justify-content-center align-items-center ">
+      <div className="card text-center">
+        <div className="card-body">
+          <h3>Delete Medication</h3>
+          {error && <Alert type="danger" messages={[error]} />}
+          <p>Are you sure you want to delete this medication?</p>
+        </div>
+        <div>
+          <button
+            className="btn btn-danger btn-block mb-3"
+            onClick={handleDelete}
+          >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

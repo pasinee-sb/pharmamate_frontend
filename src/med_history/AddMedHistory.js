@@ -24,6 +24,11 @@ function AddMedHistory() {
     "formErrors=",
     formErrors
   );
+  // Convert drugName to lowercase
+  const formDataWithLowercaseDrugName = {
+    ...formData,
+    drugName: formData.drugName.toLowerCase(),
+  };
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -31,7 +36,7 @@ function AddMedHistory() {
     try {
       let result = await PharmamateAPI.addMedHistory(
         currentUser.username,
-        formData
+        formDataWithLowercaseDrugName
       );
       setSaveConfirmed(true);
       setError([]);
@@ -40,6 +45,9 @@ function AddMedHistory() {
       setError([error.message]);
     }
   }
+
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -48,22 +56,22 @@ function AddMedHistory() {
   return (
     <div className="SignupForm">
       <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h2 className="mb-3">Add Drug</h2>
+        <h2 className="display-4">Add Drug</h2>
         <div className="card">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Drug Name</label>
+                <label className="mb-3 text-primary">Drug Name : </label>
                 <input
                   name="drugName"
-                  className="form-control"
+                  className="form-control mb-3"
                   value={formData.drugName}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label>Status </label>
-                <div className="input-group">
+                <label className="mb-3 text-primary">Status : </label>
+                <div className="input-group mb-3">
                   <select
                     name="status"
                     id="status"
@@ -76,8 +84,8 @@ function AddMedHistory() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Start Date :</label>
-                <div className="input-group">
+                <label className="mb-3 text-primary">Start Date :</label>
+                <div className="input-group mb-3">
                   <input
                     type="date"
                     name="startDate"
@@ -88,14 +96,15 @@ function AddMedHistory() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Stop Date :</label>
-                <div className="input-group">
+                <label className="mb-3 text-primary">Stop Date :</label>
+                <div className="input-group mb-3">
                   <input
                     type="date"
                     name="stopDate"
                     id="start_date"
                     value={formData.stopDate}
                     onChange={handleChange}
+                    max={today}
                   />
                 </div>
               </div>
@@ -111,7 +120,7 @@ function AddMedHistory() {
                 className="btn btn-primary float-right"
                 onSubmit={handleSubmit}
               >
-                Submit
+                Add
               </button>
             </form>
           </div>

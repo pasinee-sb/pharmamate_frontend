@@ -120,23 +120,25 @@ function ProfileForm() {
 
   return (
     <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-      <h3>Profile</h3>
+      <h3 className="display-4">Profile</h3>
       <div className="card">
         <div className="card-body">
           <form>
             <div className="form-group">
-              <label>Username :</label>
-              <p className="form-control-plaintext">{formData.username}</p>
+              <label className="text-primary mb-3">Username :</label>
+              <p>{formData.username}</p>
             </div>
 
             <div className="form-group">
               <div className="input-group">
-                <label>Old Password to make changes:</label>
+                <label className="text-primary mb-3">
+                  Old Password to make changes :
+                </label>
                 <div className="input-group">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="oldPassword"
-                    className="form-control"
+                    className="form-control mb-3"
                     value={formData.oldPassword}
                     onChange={handleChange}
                   />
@@ -155,19 +157,21 @@ function ProfileForm() {
               </div>
 
               <div className="form-group">
-                <label>New Password :</label>
+                <label className="text-primary mb-3">New Password :</label>
                 <div className="input-group">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    className="form-control"
+                    className="form-control mb-3"
                     value={formData.password}
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="form-group">
-                <label>Re-type New Password :</label>
+                <label className="text-primary mb-3">
+                  Re-type New Password :
+                </label>
                 <div className="input-group">
                   <input
                     type={showPassword ? "text" : "password"}

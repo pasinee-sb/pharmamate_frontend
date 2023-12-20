@@ -20,11 +20,22 @@ function DeleteHealthJournal() {
   };
 
   return (
-    <div>
-      <h3>Delete Health Journal</h3>
-      {error && <Alert type="danger" messages={[error]} />}
-      <p>Are you sure you want to delete this journal?</p>
-      <button onClick={handleDelete}>Delete</button>
+    <div className="d-flex justify-content-center align-items-center ">
+      <div className="card text-center">
+        <div className="card-body ">
+          <h3>Delete Health Journal</h3>
+          {error && <Alert type="danger" messages={[error]} />}
+          <p>Are you sure you want to delete this journal?</p>
+        </div>
+        <div>
+          <button
+            className="btn btn-danger btn-block mb-3 "
+            onClick={handleDelete}
+          >
+            <i class="fa-solid fa-trash-can "></i>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

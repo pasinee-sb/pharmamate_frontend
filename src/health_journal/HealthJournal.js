@@ -1,14 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import Alert from "../common/Alert";
+
 import UserContext from "../auth/UserContext";
 import { Link } from "react-router-dom";
 
-// eslint-disable-next-line
-import useTimedMessage from "../hooks/useTimedMessage";
 import PharmamateAPI from "../api/api";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import LoadingSpinner from "../common/LoadingSpinner";
 
 function HealthJournal() {
   const { currentUser } = useContext(UserContext);
@@ -37,34 +32,46 @@ function HealthJournal() {
     <div>
       {journal ? (
         <>
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">{journal}</h5>
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="card ">
+              <div className="card-body">
+                <h5 className="card-text">{journal}</h5>
+              </div>
+
+              <div className="card-footer">
+                <Link
+                  to={`/health_journal/edit`}
+                  className="btn btn-sm btn-primary"
+                >
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </Link>
+
+                <Link
+                  to={`/health_journal/delete`}
+                  className="btn btn-sm btn-danger"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div>
-            <Link
-              to={`/health_journal/edit`}
-              className="btn btn-sm btn-primary"
-            >
-              Edit journal
-            </Link>
-          </div>
-          <div>
-            <Link
-              to={`/health_journal/delete`}
-              className="btn btn-sm btn-danger"
-            >
-              Delete journal
-            </Link>
           </div>
         </>
       ) : (
-        <div>
-          <Link to={`/health_journal/add`} className="btn btn-sm btn-info">
-            Add Health Journal
-          </Link>
-          <p>Journal not found</p>
+        <div className="container">
+          <div className="card-container flex justify-content-start mt-5 mb-5">
+            <Link to="/health_journal/add" style={{ textDecoration: "none" }}>
+              <i
+                class="fa-solid fa-circle-plus fa-2xl"
+                style={{ color: "#27be84" }}
+              >
+                {" "}
+                Add{" "}
+              </i>
+            </Link>
+          </div>
+          <div className="card-container flex">
+            <p>No health journal available.</p>
+          </div>
         </div>
       )}
     </div>
