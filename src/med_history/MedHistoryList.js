@@ -93,7 +93,7 @@ function MedHistoryList() {
 
   if (!meds) return <LoadingSpinner />;
   return (
-    <div>
+    <div className="container">
       {chartRender ? (
         <div className="h-100 d-flex align-items-center justify-content-center">
           {" "}
@@ -103,7 +103,8 @@ function MedHistoryList() {
       ) : (
         ""
       )}
-      <div className="card chart"></div>
+
+      <div className="card chart custom-chart"></div>
 
       <div className="container d-flex justify-content-start mt-5 mb-5">
         <Link to="/med_history/add" style={{ textDecoration: "none" }}>
@@ -117,7 +118,7 @@ function MedHistoryList() {
         </Link>
       </div>
       <div className="container">
-        <div className="card-container flex">
+        <div className="row">
           {meds.length > 0 ? (
             [...meds] // Create a copy of the meds array
               .sort((a, b) => a.drug_name.localeCompare(b.drug_name)) // Sort alphabetically by drug_name
@@ -134,7 +135,6 @@ function MedHistoryList() {
           ) : (
             <p>No medication history available.</p>
           )}
-          {/* Other div elements */}
         </div>
       </div>
     </div>

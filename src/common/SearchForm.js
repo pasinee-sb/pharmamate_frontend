@@ -6,8 +6,6 @@ import "./SearchForm.css";
  */
 
 function SearchForm({ onSearchSubmit }) {
-  console.debug("SearchForm", "searchFor=", typeof searchFor);
-
   const [searchTerm, setSearchTerm] = useState("");
 
   /** Tell parent to filter */
@@ -36,8 +34,8 @@ function SearchForm({ onSearchSubmit }) {
           value={searchTerm}
           onChange={handleChange}
         />
-        <button type="submit" className="btn btn-lg btn-primary">
-          <i class="fa-solid fa-magnifying-glass"></i>
+        <button type="submit" className="btn btn-lg btn-dark">
+          <i className="fa-solid fa-magnifying-glass magnifying"></i>
         </button>
       </form>
     </div>

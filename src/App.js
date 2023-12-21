@@ -3,14 +3,13 @@ import { BrowserRouter } from "react-router-dom";
 import useLocalStorage from "./hooks/useLocalStorage";
 import Navigation from "./routes-nav/Navigation";
 import Routes from "./routes-nav/Routes";
-import LoadingSpinner from "./common/LoadingSpinner";
+
 import PharmamateAPI from "./api/api";
 import UserContext from "./auth/UserContext";
 import jwt from "jsonwebtoken";
-import ChatWidget from "./ChatWidget";
+import ChatWidget from "./chat_widget/ChatWidget";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // Key name for storing token in localStorage for "remember me" re-login
 export const TOKEN_STORAGE_ID = "pharmamate-token";
@@ -117,20 +116,6 @@ function App() {
       return { success: false, errors };
     }
   }
-
-  // /** Checks if a job has been applied for. */
-  // function hasAppliedToJob(id) {
-  //   return applicationIds.has(id);
-  // }
-
-  // /** Apply to a job: make API call and update set of application IDs. */
-  // function applyToJob(id) {
-  //   if (hasAppliedToJob(id)) return;
-  //   JoblyApi.applyToJob(currentUser.username, id);
-  //   setApplicationIds(new Set([...applicationIds, id]));
-  // }
-
-  // if (!infoLoaded) return <LoadingSpinner />;
 
   return (
     <BrowserRouter>

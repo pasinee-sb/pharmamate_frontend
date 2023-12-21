@@ -3,7 +3,13 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.125);
 }
 
-.nav-link.active {
+.nav-item .nav-link.active {
   font-weight: bold;
-  color: black;
+  color: #4ecdc4;
+}
+.nav-bar {
+  background-color: #e3f2fd;
+}
+.nav-item .nav-link {
+  color: #fff100;
 }

@@ -1,19 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import PharmamateAPI from "../api/api";
-import Drug from "./Drug";
+import DrugSearchResult from "./DrugSearchResult";
 import LoadingSpinner from "./LoadingSpinner";
 import SearchForm from "./SearchForm";
-import UserContext from "../auth/UserContext";
-import { useHistory } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-// ... other imports ...
 
 function SearchResultsPage() {
   const [drugDetail, setDrugDetail] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const displayLimit = 3;
+
   const [error, setError] = useState(null);
   const location = useLocation();
   const history = useHistory();
@@ -47,10 +44,6 @@ function SearchResultsPage() {
   function handleSearchSubmit(searchTerm) {
     history.push(`/search?drug=${encodeURIComponent(searchTerm)}`);
   }
-  const drugChunks = [];
-  for (let i = 0; i < drugDetail.length; i += displayLimit) {
-    drugChunks.push(drugDetail.slice(i, i + displayLimit));
-  }
 
   return (
     <div className="Homepage">
@@ -63,17 +56,13 @@ function SearchResultsPage() {
         ) : (
           drugDetail &&
           drugDetail.length > 0 && (
-            <Carousel showThumbs={false}>
-              <div className="card-container">
-                {drugChunks.map((drugDetail, index) => (
-                  <div className="d-flex " key={index}>
-                    {drugDetail.map((detail, index) => (
-                      <Drug key={index} drugDetail={detail} />
-                    ))}
-                  </div>
+            <div className="container ">
+              <div className="row">
+                {drugDetail.map((detail, index) => (
+                  <DrugSearchResult key={index} drugDetail={detail} />
                 ))}
               </div>
-            </Carousel>
+            </div>
           )
         )}
       </div>

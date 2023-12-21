@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 
 import UserContext from "../auth/UserContext";
 import { Link } from "react-router-dom";
+import "./HealthJournal.css";
 
 import PharmamateAPI from "../api/api";
 
@@ -33,7 +34,7 @@ function HealthJournal() {
       {journal ? (
         <>
           <div className="d-flex justify-content-center align-items-center">
-            <div className="card ">
+            <div className="card custom-card-width ">
               <div className="card-body">
                 <h5 className="card-text">{journal}</h5>
               </div>
@@ -41,16 +42,16 @@ function HealthJournal() {
               <div className="card-footer">
                 <Link
                   to={`/health_journal/edit`}
-                  className="btn btn-sm btn-primary"
+                  className="btn btn-sm custom-edit-journal"
                 >
-                  <i class="fa-regular fa-pen-to-square"></i>
+                  <i className="fa-regular fa-pen-to-square "></i>
                 </Link>
 
                 <Link
                   to={`/health_journal/delete`}
-                  className="btn btn-sm btn-danger"
+                  className="btn btn-sm btn-danger custom-delete-journal"
                 >
-                  <i class="fa-solid fa-trash-can"></i>
+                  <i class="fa-solid fa-trash-can "></i>
                 </Link>
               </div>
             </div>
@@ -61,7 +62,7 @@ function HealthJournal() {
           <div className="card-container flex justify-content-start mt-5 mb-5">
             <Link to="/health_journal/add" style={{ textDecoration: "none" }}>
               <i
-                class="fa-solid fa-circle-plus fa-2xl"
+                className="fa-solid fa-circle-plus fa-2xl "
                 style={{ color: "#27be84" }}
               >
                 {" "}

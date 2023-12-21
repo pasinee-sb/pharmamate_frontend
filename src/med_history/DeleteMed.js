@@ -12,9 +12,9 @@ function DeleteMed() {
 
   const handleDelete = async () => {
     try {
-      const medIdNum = parseInt(medId, 10); // Assuming medId should be a number
+      const medIdNum = parseInt(medId, 10);
       await PharmamateAPI.deleteMedHistory(currentUser.username, medIdNum);
-      // Redirect after successful deletion
+
       history.push("/med_history");
     } catch (err) {
       setError(err.message);

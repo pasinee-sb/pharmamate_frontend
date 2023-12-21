@@ -1,0 +1,17 @@
+.card.custom-card-width {
+  width: 50%;
+  max-width: 600px;
+  height: 400px;
+  overflow-y: auto; /* Adds scrolling if content overflows */
+  border: 2px solid black;
+}
+
+.btn.custom-edit-journal {
+  background-color: #fff700;
+  border: 1px solid black;
+}
+.btn.custom-delete-journal {
+  background-color: #ff4560;
+  color: white;
+  border: 1px solid black;
+}

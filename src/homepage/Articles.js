@@ -4,17 +4,17 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Article.css";
 import ArticleImage from "./Article.png";
+import LoadingSpinner from "../common/LoadingSpinner";
+import PharmamateAPI, { getHomePage } from "../api/api";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const displayLimit = 3;
-  const fetchHomepage = async (url = "http://localhost:3001/") => {
+
+  const fetchHomepage = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-
+      const data = await PharmamateAPI.getHomePage();
       setArticles(data.articles || []);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -28,25 +28,37 @@ function Articles() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    );
   }
+
+  //create array for carousel display with limit of 3 articles at a time
   const articleChunks = [];
+  const displayLimit = 3;
+
   for (let i = 0; i < articles.length; i += displayLimit) {
-    articleChunks.push(articles.slice(i, i + displayLimit));
+    articleChunks.push(
+      articles
+        .filter((article) => article.title !== "[Removed]") //filter out removed articles
+        .slice(i, i + displayLimit)
+    );
   }
 
   return (
     <div>
-      <h2>Today's health articles</h2>
+      <h2 className="display-6">Today's health articles</h2>
       <Carousel showThumbs={false}>
         {articleChunks.map((chunk, index) => (
           <div className="d-flex " key={index}>
             {chunk.map((article, articleIndex) => (
               <div
-                class="card carousel-card flex-grow-1 me-1"
+                className="card carousel-card flex-grow-1 me-2 custom-card-article"
                 key={articleIndex}
               >
-                <div class="card-body">
+                <div className="card-body flex-grow-1">
                   {article.urlToImage ? (
                     <div
                       className="article-image"
@@ -60,16 +72,19 @@ function Articles() {
                       alt={article.title}
                     ></div>
                   )}
-                  <h5 class="card-title">{article.title}</h5>
+                  <h5 className="card-title mt-3">{article.title}</h5>
 
-                  <p class="card-text">{article.description}</p>
+                  {/* <p className="card-text">{article.description}</p> */}
+                </div>
+                <div className="card-footer ">
+                  <p>{article.source.name}</p>
                   <a
-                    class="btn btn-primary"
+                    className="btn btn-primary custom-tag align-self-end"
                     href={article.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Read more
+                    <i class="fa-solid fa-up-right-from-square"></i>
                   </a>
                 </div>
               </div>

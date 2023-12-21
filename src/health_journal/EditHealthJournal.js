@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import UserContext from "../auth/UserContext";
 import PharmamateAPI from "../api/api";
 import Alert from "../common/Alert";
 
 function EditHealthJournal() {
   const { currentUser } = useContext(UserContext);
-  // const { medId } = useParams();
-  // const medIdNum = parseInt(medId, 10);
+  const history = useHistory();
   const username = currentUser.username;
 
   const [formData, setFormData] = useState({
@@ -31,12 +30,10 @@ function EditHealthJournal() {
     evt.preventDefault();
 
     try {
-      // console.log("This is stopDate");
-      // console.log(formData.stopDate);
-      // Assuming your API method is named editMedHistory and it takes these parameters
       await PharmamateAPI.editHealthJournal(username, formData);
       setSaveConfirmed(true);
       setFormErrors([]);
+      history.push("/health_journal");
     } catch (err) {
       setFormErrors([err.message]);
     }

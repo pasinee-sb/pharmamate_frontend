@@ -34,6 +34,11 @@ class PharmamateAPI {
       throw Array.isArray(message) ? message : [message];
     }
   }
+  /** Get homepage */
+  static async getHomePage() {
+    let res = await this.request("");
+    return res;
+  }
 
   // Individual API routes
 
@@ -51,26 +56,6 @@ class PharmamateAPI {
 
     return res;
   }
-
-  // /** Get details on a company by handle. */
-
-  // static async getCompany(handle) {
-  //   let res = await this.request(`companies/${handle}`);
-  //   return res.company;
-  // }
-
-  // /** Get list of jobs (filtered by title if not undefined) */
-
-  // static async getJobs(title) {
-  //   let res = await this.request("jobs", { title });
-  //   return res.jobs;
-  // }
-
-  // /** Apply to a job */
-
-  // static async applyToJob(username, id) {
-  //   await this.request(`users/${username}/jobs/${id}`, {}, "post");
-  // }
 
   // /** Get token for login from username, password. */
 

@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import Alert from "../common/Alert";
 import UserContext from "../auth/UserContext";
 
-// eslint-disable-next-line
-import useTimedMessage from "../hooks/useTimedMessage";
 import PharmamateAPI from "../api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -13,10 +11,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
  * Displays profile form and handles changes to local form state.
  * Submitting the form calls the API to save, and triggers user reloading
  * throughout the site.
- *
- * Confirmation of a successful save is normally a simple <Alert>, but
- * you can opt-in to our fancy limited-time-display message hook,
- * `useTimedMessage`, but switching the lines below.
+
  *
  * Routed as /profile
  * Routes -> ProfileForm -> Alert
@@ -34,9 +29,7 @@ function ProfileForm() {
   const [formErrors, setFormErrors] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  // switch to use our fancy limited-time-display message hook
   const [saveConfirmed, setSaveConfirmed] = useState(false);
-  // const [saveConfirmed, setSaveConfirmed] = useTimedMessage();
 
   console.debug(
     "ProfileForm",
@@ -172,7 +165,7 @@ function ProfileForm() {
                 <label className="text-primary mb-3">
                   Re-type New Password :
                 </label>
-                <div className="input-group">
+                <div className="input-group mb-3">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="confirmPassword"

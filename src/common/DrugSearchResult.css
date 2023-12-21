@@ -1,0 +1,23 @@
+.card-title h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 15px;
+}
+
+.card-title p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.card-details {
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+.custom-text {
+  color: #008ffb;
+}
+.custom-tag-drug-search {
+  color: white;
+  background-color: #008ffb;
+}

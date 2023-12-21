@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import Articles from "./Articles";
 import "./Article.css";
 import UserContext from "../auth/UserContext";
 import SearchForm from "../common/SearchForm";
-import Drug from "../common/Drug";
+
 import LoadingSpinner from "../common/LoadingSpinner";
 import PharmamateAPI from "../api/api";
 
@@ -13,24 +13,39 @@ function Homepage() {
   const [drugDetail, setDrugDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const isMountedRef = useRef(null);
   const history = useHistory();
+
+  useEffect(() => {
+    // When the component mounts, set isMountedRef to true
+    isMountedRef.current = true;
+    // Cleanup function that sets isMountedRef to false when the component unmounts
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   async function search(drug) {
     setIsLoading(true);
     setError(null);
+
     try {
       let response = await PharmamateAPI.getDrug(drug);
-      if (response.response) {
-        setDrugDetail(response.response);
-      } else {
-        setError("Drug details not found.");
-        setDrugDetail(null);
+      if (isMountedRef.current) {
+        if (response.response) {
+          setDrugDetail(response.response);
+        } else {
+          setError("Drug details not found.");
+          setDrugDetail(null);
+        }
       }
     } catch (err) {
       setError(err.toString());
       setDrugDetail(null);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   }
 
@@ -48,19 +63,10 @@ function Homepage() {
         <SearchForm onSearchSubmit={handleSearchSubmit} />
         {isLoading ? (
           <LoadingSpinner />
-        ) : error ? (
-          <p className="text-danger">{error}</p>
         ) : (
-          drugDetail &&
-          drugDetail.length > 0 && (
-            <div>
-              <h1>Drug Details</h1>
-              {drugDetail.map((detail, index) => (
-                <Drug key={index} drugDetail={detail} />
-              ))}
-            </div>
-          )
+          <p className="text-danger">{error}</p>
         )}
+
         <Articles />
       </div>
     </div>

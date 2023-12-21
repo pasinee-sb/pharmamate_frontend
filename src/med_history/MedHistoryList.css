@@ -5,19 +5,38 @@
 .inactive {
   color: #ff4560;
 }
+.custom-card-med {
+  position: relative;
+}
+
+.card-icon-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
 .card-container {
   display: flex;
-  justify-content: space-around; /* This will space out your cards evenly */
-  align-items: center; /* This will align items vertically */
-  flex-wrap: wrap; /* This allows cards to wrap onto the next line if the container is too narrow */
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .card {
-  position: relative; /* Needed if using absolute positioning for link-container */
+  position: relative;
 }
 
 .card-footer {
   display: flex;
-  justify-content: space-between; /* This spreads out the buttons */
-  padding: 0.5rem; /* Adjust padding as needed */
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.custom-chart {
+  max-width: auto;
+}
+div .custom-red-fa {
+  color: #ff4560;
+}
+div .custom-blue-fa {
+  color: #008ffb;
 }

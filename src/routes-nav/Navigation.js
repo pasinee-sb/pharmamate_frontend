@@ -20,23 +20,24 @@ function Navigation({ logout }) {
     return (
       <ul className="nav justify-content-end">
         <li className="nav-item ">
-          <NavLink className="nav-link active" to="/med_history">
+          <NavLink className="nav-link " to="/med_history">
             Medication History
           </NavLink>
         </li>
         <li className="nav-item mr-4">
-          <NavLink className="nav-link active" to="/health_journal">
+          <NavLink className="nav-link" to="/health_journal">
             Health Journal
           </NavLink>
         </li>
         <li className="nav-item mr-4">
-          <NavLink className="nav-link active" to="/profile">
-            Profile
+          <NavLink className="nav-link " to="/profile">
+            <i class="fa-regular fa-user"></i>{" "}
+            {currentUser.first_name || currentUser.username}
           </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active" to="/" onClick={logout}>
-            Log out {currentUser.first_name || currentUser.username}
+          <Link className="nav-link " to="/" onClick={logout}>
+            <i class="fa-solid fa-right-from-bracket"></i>Log out
           </Link>
         </li>
       </ul>
@@ -61,13 +62,13 @@ function Navigation({ logout }) {
   }
 
   return (
-    <nav className="navbar bg-body-tertiary bg-success-subtle">
-      <div class="container">
+    <nav className="navbar navbar-dark bg-dark">
+      <div className="container">
         <Link className="navbar-brand" to="/">
           {
             <img
               src={pharmamateImage}
-              class="rounded"
+              className="rounded"
               width="auto"
               height="60"
               alt="Pharmamate"

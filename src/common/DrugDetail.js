@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
+import "./DrugDetail.css";
 
 function DrugDetail() {
   const location = useLocation();
@@ -25,7 +26,7 @@ function DrugDetail() {
         <p>{isExpanded ? text : text.substring(0, 500) + "..."}</p>
         {shouldShowMore && (
           <button
-            className="btn btn-info"
+            className="btn custom-button"
             onClick={() => toggleExpanded(sectionKey)}
           >
             {isExpanded ? (
@@ -79,7 +80,7 @@ function DrugDetail() {
           })}
           {text.length > 500 && (
             <button
-              className="btn btn-info"
+              className="btn  custom-button"
               onClick={() => toggleExpanded(sectionKey)}
             >
               {isExpanded ? (
@@ -118,7 +119,7 @@ function DrugDetail() {
         ))}
         {shouldShowMore && (
           <button
-            className="btn btn-info"
+            className="btn  custom-button"
             onClick={() => toggleExpanded(sectionKey)}
           >
             {isExpanded ? (
@@ -147,7 +148,7 @@ function DrugDetail() {
       <div>
         <p>{displayedText}</p>
         <button
-          className="btn btn-info"
+          className="btn  custom-button"
           onClick={() => toggleExpanded(sectionKey)}
         >
           {isExpanded ? (
@@ -221,13 +222,13 @@ function DrugDetail() {
     <div className="container">
       <div className="d-flex justify-content-end">
         <a
-          className="btn btn-danger  mb-3"
+          className="btn custom-button-red  mb-3"
           href={`https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=${drugDetail.set_id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i class="fa-sharp fa-regular fa-file-pdf fa-2xl"></i> Download full
-          package insert
+          <i className="fa-sharp fa-regular fa-file-pdf fa-2xl"></i> Download
+          full package insert
         </a>
       </div>
 
@@ -250,12 +251,14 @@ function DrugDetail() {
       {[
         "indications_and_usage",
         "dosage_and_administration",
-        "information_for_patients",
-        "contraindications",
         "dosage_forms_and_strengths",
+        "information_for_patients",
+        "storage_and_handling",
+
         "geriatric_use",
         "mechanism_of_action",
         "adverse_reactions_table",
+        "contraindications",
         "pregnancy",
         "nursing_mothers",
         "pediatric_use",
