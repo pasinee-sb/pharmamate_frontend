@@ -7,8 +7,7 @@ import "./MedHistoryList.css";
 // eslint-disable-next-line
 import useTimedMessage from "../hooks/useTimedMessage";
 import PharmamateAPI from "../api/api";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 import LoadingSpinner from "../common/LoadingSpinner";
 import MedHistoryCard from "./MedHistoryCard";
 import { Link } from "react-router-dom";

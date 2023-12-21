@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import PharmamateAPI from "../api/api";
-import DrugSearchResult from "./DrugSearchResult";
-import LoadingSpinner from "./LoadingSpinner";
+import DrugCard from "./DrugCard";
+import LoadingSpinner from "../common/LoadingSpinner";
 import SearchForm from "./SearchForm";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -16,9 +16,6 @@ function SearchResultsPage() {
   const history = useHistory();
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const searchTerm = query.get("drug");
-
     const fetchDrugs = async () => {
       setIsLoading(true);
       setError(null);
@@ -35,6 +32,7 @@ function SearchResultsPage() {
         setIsLoading(false);
       }
     };
+    const searchTerm = new URLSearchParams(location.search).get("drug");
 
     if (searchTerm) {
       fetchDrugs();
@@ -59,7 +57,7 @@ function SearchResultsPage() {
             <div className="container ">
               <div className="row">
                 {drugDetail.map((detail, index) => (
-                  <DrugSearchResult key={index} drugDetail={detail} />
+                  <DrugCard key={index} drugDetail={detail} />
                 ))}
               </div>
             </div>

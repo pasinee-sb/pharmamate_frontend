@@ -1,8 +1,8 @@
 .article-image {
-  height: 200px; /* Adjust the height as needed */
-  background-size: cover; /* Cover ensures that the entire div is filled */
+  height: 200px;
+  background-size: cover;
   background-position: center; /* Centers the image in the div */
-  border-radius: 0.25rem; /* Optional: to match Bootstrap's card image style */
+  border-radius: 0.25rem;
 }
 .carousel-card {
   width: 20%; /* Set your desired width */

@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Article.css";
 import ArticleImage from "./Article.png";
 import LoadingSpinner from "../common/LoadingSpinner";
-import PharmamateAPI, { getHomePage } from "../api/api";
+import PharmamateAPI from "../api/api";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
@@ -73,8 +73,6 @@ function Articles() {
                     ></div>
                   )}
                   <h5 className="card-title mt-3">{article.title}</h5>
-
-                  {/* <p className="card-text">{article.description}</p> */}
                 </div>
                 <div className="card-footer ">
                   <p>{article.source.name}</p>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import "./DrugSearchResult.css";
+import "./DrugCard.css";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function DrugSearchResult({ drugDetail }) {
+function DrugCard({ drugDetail }) {
   return (
     <div className="col-md-3 mb-4 d-flex">
       <div className="card flex-fill d-flex flex-column">
@@ -47,4 +47,4 @@ function DrugSearchResult({ drugDetail }) {
   );
 }
 
-export default DrugSearchResult;
+export default DrugCard;

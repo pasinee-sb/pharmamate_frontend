@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import "./MedHistoryCard.css";
 
-/** Show limited information about a company
+/** Show information about a medication
  *
- * Is rendered by CompanyList to show a "card" for each company.
+ * Is rendered by MedHistoryList to show a "card" for each med.
  *
- * CompanyList -> CompanyCard
+ * MedHistoryList -> MedHistoryCard
  */
 
 function MedHistoryCard({ id, name, status, start, stop }) {

@@ -49,8 +49,6 @@ class PharmamateAPI {
     return res.user;
   }
 
-  /** Get companies (filtered by name if not undefined) */
-
   static async getDrug(drug) {
     let res = await this.request("search", { drug });
 

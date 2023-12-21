@@ -16,8 +16,8 @@ import AddMedHistory from "../med_history/AddMedHistory";
 import AddHealthJournal from "../health_journal/AddHealthJournal";
 import EditHealthJournal from "../health_journal/EditHealthJournal";
 import DeleteHealthJournal from "../health_journal/DeleteHealthJournal";
-import SearchResultsPage from "../common/SearchResultPage";
-import DrugDetail from "../common/DrugDetail";
+import SearchResultsPage from "../drug_search/SearchResultPage";
+import DrugDetail from "../drug_search/DrugDetail";
 
 /** Site-wide routes.
  *

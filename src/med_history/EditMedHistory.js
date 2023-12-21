@@ -48,7 +48,7 @@ function EditMedHistory() {
     try {
       console.log("This is stopDate");
       console.log(formData.stopDate);
-      // Validate Status and Stop Date according to your DB constraints
+      // Validate Status and Stop Date according to DB constraints
       if (formData.status === "active" && formData.stopDate) {
         setFormErrors(["An active drug should not have a stop date."]);
         return;
@@ -57,7 +57,7 @@ function EditMedHistory() {
         setFormErrors(["Stop date must be provided for an inactive drug."]);
         return;
       }
-      // Assuming your API method is named editMedHistory and it takes these parameters
+
       await PharmamateAPI.editMedHistory(username, formToSubmit, medIdNum);
       setSaveConfirmed(true);
       setFormErrors([]);
