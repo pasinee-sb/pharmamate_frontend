@@ -3,13 +3,17 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import "./DrugDetail.css";
 
+// The API returns various types of responses, including objects, arrays, strings, and HTML content.
+// The following functions are designed to appropriately render these diverse data formats
+// in the UI, ensuring correct handling and display for each type of response.
+
 function DrugDetail() {
   const location = useLocation();
   const drugDetail = location.state?.detail;
-  console.log(`This is drug detail `, drugDetail);
 
   // Define state for handling super long text expansion
   const [expandedSections, setExpandedSections] = useState({});
+
   // Toggle expanded state for a section
   const toggleExpanded = (sectionKey) => {
     setExpandedSections((prev) => ({
@@ -18,41 +22,28 @@ function DrugDetail() {
     }));
   };
 
-  function renderLongText(sectionKey, text) {
-    const isExpanded = expandedSections[sectionKey];
-    const shouldShowMore = text.length > 500;
+  function ShowMoreLessButton({ isExpanded, sectionKey, toggleExpanded }) {
     return (
-      <div>
-        <p>{isExpanded ? text : text.substring(0, 500) + "..."}</p>
-        {shouldShowMore && (
-          <button
-            className="btn custom-button"
-            onClick={() => toggleExpanded(sectionKey)}
-          >
-            {isExpanded ? (
-              <>
-                <i className="fa fa-chevron-up"></i> Show Less
-              </>
-            ) : (
-              <>
-                <i className="fa fa-chevron-down"></i> Show More
-              </>
-            )}
-          </button>
+      <button
+        className="btn custom-button mb-2"
+        onClick={() => toggleExpanded(sectionKey)}
+      >
+        {isExpanded ? (
+          <>
+            <i className="fa fa-chevron-up"></i> Show Less
+          </>
+        ) : (
+          <>
+            <i className="fa fa-chevron-down"></i> Show More
+          </>
         )}
-      </div>
+      </button>
     );
   }
 
-  function renderPatternText(sectionKey, text) {
-    const isExpanded = expandedSections[sectionKey];
-    const shouldShowMore = text.length > 500;
-
+  function renderPatternText(sectionKey, text, isExpanded, toggleExpanded) {
     // Define both patterns
     const bulletPointPattern = /•/g;
-    const parenthesesPattern = /\(\s*\d+\.\d+\s*\)/g; // For "(2.1)"
-
-    let lines;
 
     // Check which pattern is present in the text
     if (bulletPointPattern.test(text)) {
@@ -69,128 +60,79 @@ function DrugDetail() {
             } else {
               // For subsequent parts, prepend the bullet point
               const line = "• " + part;
-              return (
-                <p key={index}>
-                  {isExpanded
-                    ? line
-                    : line.substring(0, 500) + (line.length > 500 ? "..." : "")}
-                </p>
-              );
+              return <p key={index}>{isExpanded ? line : ""}</p>;
             }
           })}
-          {text.length > 500 && (
-            <button
-              className="btn  custom-button"
-              onClick={() => toggleExpanded(sectionKey)}
-            >
-              {isExpanded ? (
-                <>
-                  <i className="fa fa-chevron-up"></i> Show Less
-                </>
-              ) : (
-                <>
-                  <i className="fa fa-chevron-down"></i> Show More
-                </>
-              )}
-            </button>
+          {text.length > 100 && (
+            <ShowMoreLessButton
+              {...{ isExpanded, sectionKey, toggleExpanded }}
+            />
           )}
         </div>
       );
-    } else if (parenthesesPattern.test(text)) {
-      // Splitting the text at each occurrence of parentheses pattern
-      lines = text.split(parenthesesPattern);
-
-      // Remove empty first element if present
-      if (lines.length > 0 && lines[0].trim() === "") {
-        lines.shift();
-      }
-    } else {
-      // If no pattern is detected, return the text as is
-      return <p>{text}</p>;
     }
-
-    // Map each line to JSX
-    return (
-      <div>
-        {lines.map((line, index) => (
-          <p key={index}>
-            {isExpanded ? line.trim() : line.trim().substring(0, 500) + "..."}
-          </p>
-        ))}
-        {shouldShowMore && (
-          <button
-            className="btn  custom-button"
-            onClick={() => toggleExpanded(sectionKey)}
-          >
-            {isExpanded ? (
-              <>
-                <i className="fa fa-chevron-up"></i> Show Less
-              </>
-            ) : (
-              <>
-                <i className="fa fa-chevron-down"></i> Show More
-              </>
-            )}
-          </button>
-        )}
-      </div>
-    );
   }
 
   // Handle super long text
-  function renderSuperLongText(sectionKey, text) {
-    const isExpanded = expandedSections[sectionKey];
-    const MAX_LENGTH = 500; // Maximum characters to show initially
+  function renderSuperLongText(sectionKey, text, isExpanded, toggleExpanded) {
+    const MAX_LENGTH = 100; // Maximum characters to show initially
     const displayedText = isExpanded
       ? text
       : text.substring(0, MAX_LENGTH) + "...";
+    if (/•/g.test(text)) {
+      return renderPatternText(sectionKey, text, isExpanded, toggleExpanded);
+    }
     return (
       <div>
         <p>{displayedText}</p>
-        <button
-          className="btn  custom-button"
-          onClick={() => toggleExpanded(sectionKey)}
-        >
-          {isExpanded ? (
-            <>
-              <i className="fa fa-chevron-up"></i> Show Less
-            </>
-          ) : (
-            <>
-              <i className="fa fa-chevron-down"></i> Show More
-            </>
-          )}
-        </button>
+        <ShowMoreLessButton {...{ isExpanded, sectionKey, toggleExpanded }} />
       </div>
     );
   }
 
-  // Render HTML content safely
-  function renderHTML(htmlContent) {
+  // Render HTML content safely using DOMpurity
+  function renderHTML(sectionKey, htmlContent, isExpanded, toggleExpanded) {
     const cleanHTML = DOMPurify.sanitize(htmlContent);
-    return <div dangerouslySetInnerHTML={{ __html: cleanHTML }}></div>;
+    const displayedText = isExpanded ? (
+      <div dangerouslySetInnerHTML={{ __html: cleanHTML }}></div>
+    ) : (
+      ""
+    );
+
+    return (
+      <div>
+        <div>{displayedText}</div>
+        <div>
+          <ShowMoreLessButton {...{ isExpanded, sectionKey, toggleExpanded }} />
+        </div>
+      </div>
+    );
   }
 
   // Main rendering logic for different data types
   function renderContent(sectionKey, value) {
+    // Correctly use isExpanded from expandedSections
+    const isExpanded = expandedSections[sectionKey];
     // Check if value is a string before proceeding
     if (typeof value === "string") {
       // Check for HTML content
       if (value.includes("<table")) {
-        return renderHTML(value);
+        return renderHTML(sectionKey, value, isExpanded, toggleExpanded);
       }
-      // Check for patterned text
-      else if (/\(\s*\d+\.\d+\s*\)/g.test(value) || /•/g.test(value)) {
-        return renderPatternText(sectionKey, value);
-      }
+
       // Check for super long text
-      else if (value.length > 1000) {
-        return renderSuperLongText(sectionKey, value);
+      else if (value.length > 100) {
+        return renderSuperLongText(
+          sectionKey,
+          value,
+          isExpanded,
+          toggleExpanded
+        );
       }
 
       // Handle as normal text
       else {
-        return renderLongText(sectionKey, value);
+        return <p>{value}</p>;
       }
     }
     // Handle arrays
@@ -227,8 +169,8 @@ function DrugDetail() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i className="fa-sharp fa-regular fa-file-pdf fa-2xl"></i> Download
-          full package insert
+          <i class="fa-solid fa-download fa-xl"></i> Download full package
+          insert
         </a>
       </div>
 
@@ -236,15 +178,16 @@ function DrugDetail() {
       drugDetail.openfda.generic_name[0].toLowerCase() ? (
         <div>
           {" "}
-          <h2>Brand Name</h2> <p>{drugDetail.openfda.brand_name[0]}</p>
-          <h2>Generic Name</h2>
+          <h2 className="sectionKey">Brand Name</h2>{" "}
+          <p>{drugDetail.openfda.brand_name[0]}</p>
+          <h2 className="sectionKey">Generic Name</h2>
           <p> {drugDetail.openfda.generic_name[0]}</p>
         </div>
       ) : (
         <div>
-          <h3>Generic Name</h3>
+          <h3 className="sectionKey">Generic Name</h3>
           <p> {drugDetail.openfda.generic_name[0]}</p>
-          <h3>Manufacturer</h3>
+          <h3 className="sectionKey">Manufacturer</h3>
           <p> {drugDetail.openfda.manufacturer_name[0]}</p>
         </div>
       )}
@@ -254,14 +197,15 @@ function DrugDetail() {
         "dosage_forms_and_strengths",
         "information_for_patients",
         "storage_and_handling",
-
-        "geriatric_use",
         "mechanism_of_action",
         "adverse_reactions_table",
         "contraindications",
+        "geriatric_use",
         "pregnancy",
         "nursing_mothers",
         "pediatric_use",
+        "warnings_and_cautions_table",
+        "use_in_specific_populations_table",
         "overdosage",
         "how_supplied",
       ].map((sectionKey) => {
@@ -269,7 +213,7 @@ function DrugDetail() {
         if (value) {
           return (
             <div key={sectionKey}>
-              <h3 className="mt-3">
+              <h3 className="sectionKey">
                 {sectionKey.replace(/_/g, " ").toUpperCase()}
               </h3>
               {renderContent(sectionKey, value)}

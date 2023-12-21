@@ -7,7 +7,7 @@ import Alert from "../common/Alert";
 function AddMedHistory() {
   const history = useHistory();
   const { currentUser } = useContext(UserContext);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState([]);
   const [saveConfirmed, setSaveConfirmed] = useState(false);
   const [formData, setFormData] = useState({
     username: currentUser.username,
@@ -16,14 +16,8 @@ function AddMedHistory() {
     startDate: "",
     stopDate: "",
   });
-  const [formErrors, setFormErrors] = useState([]);
-  console.debug(
-    "AddMedHistory",
-    "formData=",
-    formData,
-    "formErrors=",
-    formErrors
-  );
+
+  console.debug("AddMedHistory", "formData=", formData, "formErrors=", error);
   // Convert drugName to lowercase
   const formDataWithLowercaseDrugName = {
     ...formData,
@@ -34,6 +28,20 @@ function AddMedHistory() {
     evt.preventDefault();
 
     try {
+      //Validate input before adding
+      if (!formData.drugName) {
+        setError(["Please enter drug name"]);
+        return;
+      }
+      if (!formData.startDate) {
+        setError(["Please enter start date"]);
+        return;
+      }
+
+      if (formData.status === "inactive" && !formData.stopDate) {
+        setError(["Inactive drug must have stop date"]);
+        return;
+      }
       let result = await PharmamateAPI.addMedHistory(
         currentUser.username,
         formDataWithLowercaseDrugName
@@ -41,8 +49,8 @@ function AddMedHistory() {
       setSaveConfirmed(true);
       setError([]);
       history.push("/med_history");
-    } catch (error) {
-      setError([error.message]);
+    } catch (err) {
+      setError([err.message]);
     }
   }
 
@@ -109,9 +117,7 @@ function AddMedHistory() {
                 </div>
               </div>
 
-              {formErrors.length ? (
-                <Alert type="danger" messages={formErrors} />
-              ) : null}
+              {error.length ? <Alert type="danger" messages={error} /> : null}
               {saveConfirmed ? (
                 <Alert type="success" messages={["Drug added successfully."]} />
               ) : null}

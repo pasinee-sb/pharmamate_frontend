@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import UserContext from "../auth/UserContext";
 import PharmamateAPI from "../api/api";
 import Alert from "../common/Alert";
@@ -7,6 +7,7 @@ import Alert from "../common/Alert";
 function EditMedHistory() {
   const { currentUser } = useContext(UserContext);
   const { medId } = useParams();
+  const history = useHistory();
   const medIdNum = parseInt(medId, 10);
   const username = currentUser.username;
 
@@ -46,8 +47,6 @@ function EditMedHistory() {
     };
 
     try {
-      console.log("This is stopDate");
-      console.log(formData.stopDate);
       // Validate Status and Stop Date according to DB constraints
       if (formData.status === "active" && formData.stopDate) {
         setFormErrors(["An active drug should not have a stop date."]);
@@ -61,6 +60,7 @@ function EditMedHistory() {
       await PharmamateAPI.editMedHistory(username, formToSubmit, medIdNum);
       setSaveConfirmed(true);
       setFormErrors([]);
+      history.push("/med_history");
     } catch (err) {
       setFormErrors([err.message]);
     }

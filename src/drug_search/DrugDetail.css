@@ -1,8 +1,16 @@
 button.custom-button {
   color: #f8f7ff;
-  background: #1c22ce;
+  /* background: #008ffb; */
+  /* background: #1c22ce; */
+  background-color: rgb(78, 205, 196);
 }
 a.custom-button-red {
   color: #f8f7ff;
   background: #ff4560;
+  border: 3px solid black;
+}
+
+h3.sectionKey {
+  /* color: #1c22ce; */
+  color: #008ffb;
 }
