@@ -31,13 +31,13 @@ function Navigation({ logout }) {
         </li>
         <li className="nav-item mr-4">
           <NavLink className="nav-link " to="/profile">
-            <i class="fa-regular fa-user"></i>{" "}
+            <i className="fa-regular fa-user"></i>{" "}
             {currentUser.first_name || currentUser.username}
           </NavLink>
         </li>
         <li className="nav-item">
           <Link className="nav-link " to="/" onClick={logout}>
-            <i class="fa-solid fa-right-from-bracket"></i>Log out
+            <i className="fa-solid fa-right-from-bracket"></i>Log out
           </Link>
         </li>
       </ul>
