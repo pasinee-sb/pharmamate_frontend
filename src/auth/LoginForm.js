@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "../common/Alert";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 /** Login form.
  *
@@ -14,6 +15,8 @@ import Alert from "../common/Alert";
  */
 
 function LoginForm({ login }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
   const [formData, setFormData] = useState({
     username: "",
@@ -33,14 +36,17 @@ function LoginForm({ login }) {
 
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful, redirect to /companies.
+   * Calls login func prop and, if successful, redirect to /
+   * .
    */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+    setIsLoading(true);
     let result = await login(formData);
+    setIsLoading(false);
     if (result.success) {
-      history.push("/companies");
+      history.push("/med_history");
     } else {
       setFormErrors(result.errors);
     }
@@ -92,7 +98,7 @@ function LoginForm({ login }) {
                 className="btn btn-primary float-right"
                 onSubmit={handleSubmit}
               >
-                Submit
+                {isLoading ? <LoadingSpinner /> : "Submit"}
               </button>
             </form>
           </div>
