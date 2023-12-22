@@ -77,11 +77,11 @@ function DrugDetail() {
   function renderSuperLongText(sectionKey, text, isExpanded, toggleExpanded) {
     const MAX_LENGTH = 100; // Maximum characters to show initially
     const displayedText = isExpanded
-      ? text
+      ? /•/g.test(text)
+        ? renderPatternText(sectionKey, text, isExpanded, toggleExpanded)
+        : text
       : text.substring(0, MAX_LENGTH) + "...";
-    if (/•/g.test(text)) {
-      return renderPatternText(sectionKey, text, isExpanded, toggleExpanded);
-    }
+
     return (
       <div>
         <p>{displayedText}</p>
@@ -178,17 +178,19 @@ function DrugDetail() {
       drugDetail.openfda.generic_name[0].toLowerCase() ? (
         <div>
           {" "}
-          <h2 className="sectionKey">Brand Name</h2>{" "}
-          <p>{drugDetail.openfda.brand_name[0]}</p>
-          <h2 className="sectionKey">Generic Name</h2>
-          <p> {drugDetail.openfda.generic_name[0]}</p>
+          <h2 className="sectionKey">BRAND NAME</h2>{" "}
+          <p>{drugDetail.openfda.brand_name[0].toUpperCase()}</p>
+          <h2 className="sectionKey">GENERIC NAME</h2>
+          <p> {drugDetail.openfda.generic_name[0].toUpperCase()}</p>
+          <h3 className="sectionKey">MANUFACTURER</h3>
+          <p> {drugDetail.openfda.manufacturer_name[0].toUpperCase()}</p>
         </div>
       ) : (
         <div>
-          <h3 className="sectionKey">Generic Name</h3>
-          <p> {drugDetail.openfda.generic_name[0]}</p>
-          <h3 className="sectionKey">Manufacturer</h3>
-          <p> {drugDetail.openfda.manufacturer_name[0]}</p>
+          <h2 className="sectionKey">GENERIC NAME</h2>
+          <p> {drugDetail.openfda.generic_name[0].toUpperCase()}</p>
+          <h3 className="sectionKey">MANUFACTURER</h3>
+          <p> {drugDetail.openfda.manufacturer_name[0].toUpperCase()}</p>
         </div>
       )}
       {[

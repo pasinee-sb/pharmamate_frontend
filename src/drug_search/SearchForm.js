@@ -30,7 +30,7 @@ function SearchForm({ onSearchSubmit }) {
         <input
           className="form-control form-control-lg flex-grow-1 me-3 italic-placeholder "
           name="searchTerm"
-          placeholder="Enter drug name for label information"
+          placeholder="Enter drug name for label info"
           value={searchTerm}
           onChange={handleChange}
         />

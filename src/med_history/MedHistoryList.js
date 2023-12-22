@@ -4,8 +4,6 @@ import UserContext from "../auth/UserContext";
 import ApexCharts from "apexcharts";
 import "./MedHistoryList.css";
 
-// eslint-disable-next-line
-import useTimedMessage from "../hooks/useTimedMessage";
 import PharmamateAPI from "../api/api";
 
 import LoadingSpinner from "../common/LoadingSpinner";
@@ -41,7 +39,7 @@ function MedHistoryList() {
       const options = {
         chart: {
           type: "rangeBar",
-          height: 350,
+          height: "350",
         },
         series: [{ data: chartData }],
         xaxis: {
@@ -50,6 +48,8 @@ function MedHistoryList() {
         plotOptions: {
           bar: {
             horizontal: true,
+            borderRadiusWhenStacked: "last",
+            barHeight: "40%",
           },
         },
         grid: {
