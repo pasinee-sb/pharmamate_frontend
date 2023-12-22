@@ -41,17 +41,12 @@ class PharmamateAPI {
   /** Get homepage */
 
   static async getHomePage() {
-    const params = {
-      q: "drug OR medication OR pill OR pharma OR medical",
-      language: "en",
-      searchIn: "title",
-      sortBy: "publishedAt",
-      apiKey: process.env.REACT_APP_NEWS_API_KEY,
-    };
+    const newsAPIKey = process.env.REACT_APP_NEWS_API_KEY;
 
-    const response = await axios.get("https://newsapi.org/v2/everything", {
-      params,
-    });
+    let response = await axios.get(
+      `https://newsapi.org/v2/everything?q=drug OR medication OR pill OR pharma OR medical&language=en&searchIn=title&sortBy=publishedAt&apiKey=${newsAPIKey}`
+    );
+
     return response.data;
   }
 
