@@ -19,11 +19,6 @@ function LoginForm({ login }) {
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useContext(UserContext);
   const history = useHistory();
-  useEffect(() => {
-    if (currentUser) {
-      history.push("/med_history");
-    }
-  }, [currentUser, history]);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -104,12 +99,14 @@ function LoginForm({ login }) {
               <button
                 className="btn btn-primary float-right"
                 onSubmit={handleSubmit}
-              ></button>
+              >
+                Submit
+              </button>
             </form>
           </div>
-          {isLoading ? <LoadingSpinner /> : ""}
         </div>
       </div>
+      {isLoading ? <LoadingSpinner /> : ""}
     </div>
   );
 }
