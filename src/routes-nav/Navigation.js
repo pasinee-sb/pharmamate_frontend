@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../auth/UserContext";
 import "./Navigation.css";
@@ -14,22 +14,25 @@ import pharmamateImage from "../pharmamate.png";
 
 function Navigation({ logout }) {
   const { currentUser } = useContext(UserContext);
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   console.debug("Navigation", "currentUser=", currentUser);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   function loggedInNav() {
     return (
-      <ul className="nav justify-content-end">
+      <ul className="navbar-nav">
         <li className="nav-item ">
           <NavLink className="nav-link " to="/med_history">
             Medication History
           </NavLink>
         </li>
-        <li className="nav-item mr-4">
+        <li className="nav-item">
           <NavLink className="nav-link" to="/health_journal">
             Health Journal
           </NavLink>
         </li>
-        <li className="nav-item mr-4">
+        <li className="nav-item ">
           <NavLink className="nav-link " to="/profile">
             <i className="fa-regular fa-user"></i>{" "}
             {currentUser.first_name || currentUser.username}
@@ -62,7 +65,7 @@ function Navigation({ logout }) {
   }
 
   return (
-    <nav className="navbar navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
       <div className="container">
         <Link className="navbar-brand" to="/">
           {
@@ -75,7 +78,24 @@ function Navigation({ logout }) {
             />
           }
         </Link>
-        {currentUser ? loggedInNav() : loggedOutNav()}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded={!isNavCollapsed ? true : false}
+          aria-label="Toggle navigation"
+          onClick={handleNavCollapse}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
+          id="navbarNav"
+        >
+          {currentUser ? loggedInNav() : loggedOutNav()}
+        </div>
       </div>
     </nav>
   );

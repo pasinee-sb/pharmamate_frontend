@@ -15,3 +15,10 @@
   color: #f8f7ff;
   background-color: #008ffb;
 }
+
+/* Media query for smaller screens (mobile devices) */
+@media (max-width: 767px) {
+  .card.custom-card-article {
+    margin: 2rem 2rem; /* Increase left and right margin */
+  }
+}
