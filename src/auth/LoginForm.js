@@ -47,7 +47,7 @@ function LoginForm({ login }) {
     setIsLoading(true);
     let result = await login(formData);
     setIsLoading(false);
-    if (currentUser) {
+    if (result) {
       history.push("/med_history");
     } else {
       setFormErrors(result.errors);
@@ -105,8 +105,8 @@ function LoginForm({ login }) {
             </form>
           </div>
         </div>
+        {isLoading ? <LoadingSpinner /> : ""}
       </div>
-      {isLoading ? <LoadingSpinner /> : ""}
     </div>
   );
 }
