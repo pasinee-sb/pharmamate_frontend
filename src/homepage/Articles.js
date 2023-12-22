@@ -35,6 +35,7 @@ function Articles() {
     return (
       <div>
         <LoadingSpinner />
+        <i class="fa-solid fa-newspaper fa-2xl"></i>
       </div>
     );
   }
@@ -44,17 +45,13 @@ function Articles() {
   const displayLimit = 3;
 
   for (let i = 0; i < articles.length; i += displayLimit) {
-    articleChunks.push(
-      articles
-        // .filter((article) => article.title !== "[Removed]") //filter out removed articles
-        .slice(i, i + displayLimit)
-    );
+    articleChunks.push(articles.slice(i, i + displayLimit));
   }
 
   return (
     <div>
       <h2 className="display-6">Today's health articles</h2>
-      {/* <BootstrapCarousel articles={articles} /> */}
+
       <Carousel showThumbs={false}>
         {articleChunks.map((chunk, index) => (
           <div className="row" key={index}>

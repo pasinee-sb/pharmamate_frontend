@@ -1,4 +1,23 @@
 #chat-widget-fab .MuiFab-sizeLarge {
-  width: 80px; /* Adjust width as needed */
-  height: auto; /* Adjust height as needed */
+  width: 80px;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  #chat-widget-fab .MuiFab-sizeLarge {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10%;
+  }
+
+  .MuiBox-root #chat-widget-container {
+    max-width: 90%;
+  }
+
+  /* Adjust the main container of the chat widget */
+  .MuiStack-root.css-mgk1pj {
+    max-height: 75vh;
+    overflow: hidden;
+    display: flex;
+  }
 }

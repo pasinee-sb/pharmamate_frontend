@@ -42,10 +42,9 @@ function DrugDetail() {
   }
 
   function renderPatternText(sectionKey, text, isExpanded, toggleExpanded) {
-    // Define both patterns
     const bulletPointPattern = /•/g;
 
-    // Check which pattern is present in the text
+    // Check if pattern is present in the text
     if (bulletPointPattern.test(text)) {
       // Splitting the text at each occurrence of bullet point pattern
       const parts = text.split(bulletPointPattern);

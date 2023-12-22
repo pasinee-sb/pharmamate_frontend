@@ -48,8 +48,7 @@ function MedHistoryList() {
         plotOptions: {
           bar: {
             horizontal: true,
-            borderRadiusWhenStacked: "last",
-            barHeight: "40%",
+            barHeight: "70%",
           },
         },
         grid: {
@@ -90,7 +89,13 @@ function MedHistoryList() {
     setMedList(myMeds);
   }
 
-  if (!meds) return <LoadingSpinner />;
+  if (!meds)
+    return (
+      <>
+        <LoadingSpinner />
+        <i class="fa-solid fa-pills"></i>
+      </>
+    );
   return (
     <div className="container">
       {chartRender ? (

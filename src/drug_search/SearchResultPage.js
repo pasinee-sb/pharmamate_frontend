@@ -48,7 +48,10 @@ function SearchResultsPage() {
       <div className="container text-center">
         <SearchForm onSearchSubmit={handleSearchSubmit} />
         {isLoading ? (
-          <LoadingSpinner />
+          <>
+            <LoadingSpinner />
+            <i class="fa-solid fa-pills fa-2xl"></i>
+          </>
         ) : error ? (
           <p className="text-danger">{error}</p>
         ) : (
