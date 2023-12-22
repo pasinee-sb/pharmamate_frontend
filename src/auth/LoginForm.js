@@ -47,7 +47,7 @@ function LoginForm({ login }) {
     setIsLoading(true);
     let result = await login(formData);
     setIsLoading(false);
-    if (result.success) {
+    if (result.user) {
       history.push("/med_history");
     } else {
       setFormErrors(result.errors);
