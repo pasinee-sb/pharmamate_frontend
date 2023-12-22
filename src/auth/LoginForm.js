@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "../common/Alert";
 import LoadingSpinner from "../common/LoadingSpinner";
+import UserContext from "../auth/UserContext";
 
 /** Login form.
  *
@@ -16,8 +17,14 @@ import LoadingSpinner from "../common/LoadingSpinner";
 
 function LoginForm({ login }) {
   const [isLoading, setIsLoading] = useState(false);
-
+  const { currentUser } = useContext(UserContext);
   const history = useHistory();
+  useEffect(() => {
+    if (currentUser) {
+      history.push("/med_history");
+    }
+  }, [currentUser, history]);
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -45,7 +52,7 @@ function LoginForm({ login }) {
     setIsLoading(true);
     let result = await login(formData);
     setIsLoading(false);
-    if (result.success) {
+    if (currentUser) {
       history.push("/med_history");
     } else {
       setFormErrors(result.errors);
@@ -97,11 +104,10 @@ function LoginForm({ login }) {
               <button
                 className="btn btn-primary float-right"
                 onSubmit={handleSubmit}
-              >
-                {isLoading ? <LoadingSpinner /> : "Submit"}
-              </button>
+              ></button>
             </form>
           </div>
+          {isLoading ? <LoadingSpinner /> : ""}
         </div>
       </div>
     </div>
