@@ -128,9 +128,7 @@ function ProfileForm() {
 
             <div className="form-group">
               <div className="input-group">
-                <label className="text-primary mb-3">
-                  Old Password to make changes :
-                </label>
+                <label className="text-primary mb-3">Old Password:</label>
                 <div className="input-group">
                   <input
                     type={showPassword.oldPassword ? "text" : "password"}
@@ -217,7 +215,7 @@ function ProfileForm() {
               className="btn btn-primary btn-block mt-4"
               onClick={handleSubmit}
             >
-              Save Changes
+              Save
             </button>
           </form>
         </div>

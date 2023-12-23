@@ -49,11 +49,20 @@ function EditMedHistory() {
     try {
       // Validate Status and Stop Date according to DB constraints
       if (formData.status === "active" && formData.stopDate) {
-        setFormErrors(["An active drug should not have a stop date."]);
+        setFormErrors(["Please clear stop date for an active drug."]);
         return;
       }
       if (formData.status === "inactive" && !formData.stopDate) {
-        setFormErrors(["Stop date must be provided for an inactive drug."]);
+        setFormErrors(["Please provide stop date for an inactive drug."]);
+        return;
+      }
+      // Convert string dates to Date objects
+      const start = new Date(formData.startDate);
+      const stop = new Date(formData.stopDate);
+
+      // Check if stopDate is earlier than startDate
+      if (formData.status === "inactive" && stop < start) {
+        setFormErrors(["Stop date cannot be earlier than start date."]);
         return;
       }
 
@@ -115,9 +124,10 @@ function EditMedHistory() {
                 />
               </div>
             </div>
+
             <div className="form-group">
-              <label className="  mb-3 text-primary ">Stop Date :</label>
-              <div className="input-group  mb-3">
+              <label className="mb-3 text-primary">Stop Date :</label>
+              <div className="input-group mb-3">
                 <input
                   type="date"
                   name="stopDate"
