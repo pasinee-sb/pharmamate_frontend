@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const BASE_URL =
-  //* uncomment below when in production environment */
-  "https://pharmamate-backend.onrender.com" || "http://localhost:3001";
-//* uncomment below when in development environment */
-// process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = "https://pharmamate-backend.onrender.com";
+// ||
+// "http://localhost:3001";
 
 /** API Class.
  *

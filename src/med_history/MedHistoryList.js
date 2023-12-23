@@ -137,7 +137,9 @@ function MedHistoryList() {
                 />
               ))
           ) : (
-            <p>No medication history available.</p>
+            <div className="card-container flex">
+              <p>No medication history available.</p>
+            </div>
           )}
         </div>
       </div>

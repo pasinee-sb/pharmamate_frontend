@@ -27,7 +27,11 @@ function ProfileForm() {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState([]);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    oldPassword: false,
+    password: false,
+    confirmPassword: false,
+  });
 
   const [saveConfirmed, setSaveConfirmed] = useState(false);
 
@@ -107,8 +111,8 @@ function ProfileForm() {
   }
 
   /**Toggle password visibility */
-  function togglePasswordVisibility() {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  function togglePasswordVisibility(field) {
+    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
   }
 
   return (
@@ -129,7 +133,7 @@ function ProfileForm() {
                 </label>
                 <div className="input-group">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword.oldPassword ? "text" : "password"}
                     name="oldPassword"
                     className="form-control mb-3"
                     value={formData.oldPassword}
@@ -139,10 +143,10 @@ function ProfileForm() {
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={togglePasswordVisibility}
+                      onClick={() => togglePasswordVisibility("oldPassword")}
                     >
                       <FontAwesomeIcon
-                        icon={showPassword ? faEyeSlash : faEye}
+                        icon={showPassword.oldPassword ? faEyeSlash : faEye}
                       />
                     </button>
                   </div>
@@ -153,12 +157,23 @@ function ProfileForm() {
                 <label className="text-primary mb-3">New Password :</label>
                 <div className="input-group">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword.password ? "text" : "password"}
                     name="password"
                     className="form-control mb-3"
                     value={formData.password}
                     onChange={handleChange}
                   />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => togglePasswordVisibility("password")}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword.password ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="form-group">
@@ -167,12 +182,25 @@ function ProfileForm() {
                 </label>
                 <div className="input-group mb-3">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword.confirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     className="form-control"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                   />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() =>
+                        togglePasswordVisibility("confirmPassword")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword.confirmPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

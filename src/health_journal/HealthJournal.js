@@ -32,7 +32,7 @@ function HealthJournal() {
   return (
     <div>
       {journal ? (
-        <>
+        <div className="container">
           <div className="d-flex justify-content-center align-items-center">
             <div className="card custom-card-width ">
               <div className="card-body">
@@ -56,9 +56,10 @@ function HealthJournal() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className="container">
+          <hr></hr>
           <div className="card-container flex justify-content-start mt-5 mb-5">
             <Link to="/health_journal/add" style={{ textDecoration: "none" }}>
               <i

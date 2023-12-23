@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Alert from "../common/Alert";
 import LoadingSpinner from "../common/LoadingSpinner";
 import UserContext from "../auth/UserContext";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 /** Login form.
  *
  * Shows form and manages update to state on changes.
@@ -25,6 +26,7 @@ function LoginForm({ login }) {
     password: "",
   });
   const [formErrors, setFormErrors] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
 
   console.debug(
     "LoginForm",
@@ -35,6 +37,11 @@ function LoginForm({ login }) {
     "formErrors",
     formErrors
   );
+  useEffect(() => {
+    if (currentUser) {
+      history.push("/med_history");
+    }
+  }, [currentUser, history]); // Add this useEffect hook
 
   /** Handle form submit:
    *
@@ -46,11 +53,13 @@ function LoginForm({ login }) {
     evt.preventDefault();
     setIsLoading(true);
     let result = await login(formData);
+    console.log("This is result from log in", result);
     setIsLoading(false);
-    if (result.user) {
-      history.push("/med_history");
+    console.log("this is current user", currentUser);
+    if (result.success) {
+      return;
     } else {
-      setFormErrors(result.errors);
+      setFormErrors([result.errors]);
     }
   }
 
@@ -58,6 +67,10 @@ function LoginForm({ login }) {
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData((l) => ({ ...l, [name]: value }));
+  }
+  //Toggle password visibility
+  function togglePasswordVisibility() {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
   return (
@@ -81,15 +94,28 @@ function LoginForm({ login }) {
               </div>
               <div className="form-group">
                 <label className="text-primary mb-3">Password :</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control mb-3"
-                  value={formData.password}
-                  onChange={handleChange}
-                  autoComplete="current-password"
-                  required
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    className="form-control mb-3"
+                    value={formData.password}
+                    onChange={handleChange}
+                    autoComplete="current-password"
+                    required
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {formErrors.length ? (
@@ -105,7 +131,7 @@ function LoginForm({ login }) {
             </form>
           </div>
         </div>
-        {isLoading ? <LoadingSpinner /> : ""}
+        <div className="mb-auto">{isLoading ? <LoadingSpinner /> : ""}</div>
       </div>
     </div>
   );

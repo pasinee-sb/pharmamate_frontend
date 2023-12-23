@@ -23,7 +23,10 @@ function SignupForm({ signup }) {
     repeatPassword: "",
   });
   const [formErrors, setFormErrors] = useState([]);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    repeatPassword: false,
+  });
 
   console.debug(
     "SignupForm",
@@ -56,7 +59,7 @@ function SignupForm({ signup }) {
     let result = await signup(userData);
     if (result.success) {
       console.log("sign up successful");
-      history.push("/");
+      history.push("/med_history");
     } else {
       setFormErrors(result.errors);
     }
@@ -69,8 +72,8 @@ function SignupForm({ signup }) {
   }
 
   //Toggle password visibility
-  function togglePasswordVisibility() {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  function togglePasswordVisibility(field) {
+    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
   }
 
   return (
@@ -93,7 +96,7 @@ function SignupForm({ signup }) {
                 <label className="text-primary mb-3">Password : </label>
                 <div className="input-group">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword.password ? "text" : "password"}
                     name="password"
                     className="form-control mb-3"
                     value={formData.password}
@@ -103,10 +106,10 @@ function SignupForm({ signup }) {
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={togglePasswordVisibility}
+                      onClick={() => togglePasswordVisibility("password")}
                     >
                       <FontAwesomeIcon
-                        icon={showPassword ? faEyeSlash : faEye}
+                        icon={showPassword.password ? faEyeSlash : faEye}
                       />
                     </button>
                   </div>
@@ -114,13 +117,26 @@ function SignupForm({ signup }) {
               </div>
               <div className="form-group">
                 <label className=" text-primary mb-3">Repeat Password :</label>
-                <input
-                  type="password"
-                  name="repeatPassword"
-                  className="form-control   mb-3"
-                  value={formData.repeatPassword}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword.repeatPassword ? "text" : "password"}
+                    name="repeatPassword"
+                    className="form-control   mb-3"
+                    value={formData.repeatPassword}
+                    onChange={handleChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => togglePasswordVisibility("repeatPassword")}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword.repeatPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {formErrors.length ? (
