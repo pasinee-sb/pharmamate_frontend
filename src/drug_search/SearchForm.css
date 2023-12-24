@@ -4,10 +4,34 @@
 }
 .italic-placeholder {
   font-style: italic;
+  font-size: x-large;
 }
 .magnifying {
   color: #fff700;
 }
+
+/* In your CSS file */
+.custom-autocomplete {
+  position: relative;
+  width: 100%;
+}
+
+.custom-autocomplete .search-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  background-color: #000;
+}
+
+.custom-autocomplete .MuiFormControl-root {
+  width: 100%;
+}
+
 /* Media query for smaller screens */
 @media (max-width: 767px) {
   .italic-placeholder::placeholder {
