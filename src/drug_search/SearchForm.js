@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import axios from "axios";
 
@@ -6,6 +6,7 @@ import debounce from "lodash.debounce"; // Make sure to install lodash.debounce
 
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import PharmamateAPI from "../api/api";
 
 /** Search widget.
 
@@ -19,10 +20,8 @@ function SearchForm({ onSearchSubmit }) {
     const debouncedSearch = debounce(async (searchValue) => {
       if (searchValue.length > 2) {
         try {
-          const response = await axios.get(
-            `https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name=${searchValue}`
-          );
-          setSuggestions(response.data.data.map((d) => d.drug_name));
+          const response = await PharmamateAPI.getDrugAutocomplete(searchValue);
+          setSuggestions(response.data.map((d) => d.drug_name));
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -66,14 +65,14 @@ function SearchForm({ onSearchSubmit }) {
             {...params}
             className="form-control form-control-lg flex-grow-1 me-3 italic-placeholder "
             name="searchTerm"
-            placeholder="Enter drug name for label info"
+            placeholder="Enter drug name for label information"
           />
         )}
       />
 
-      <button className="btn btn-lg btn-dark search-button">
+      <div className="btn btn-lg btn-dark search-button">
         <i className="fa-solid fa-magnifying-glass magnifying"></i>
-      </button>
+      </div>
     </div>
   );
 }

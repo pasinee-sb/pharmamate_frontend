@@ -50,7 +50,7 @@ function SearchResultsPage() {
         {isLoading ? (
           <>
             <LoadingSpinner />
-            <i class="fa-solid fa-pills fa-2xl"></i>
+            <i className="fa-solid fa-pills fa-2xl"></i>
           </>
         ) : error ? (
           <p className="text-danger">{error}</p>

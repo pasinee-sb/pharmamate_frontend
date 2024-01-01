@@ -38,7 +38,7 @@ function DrugCard({ drugDetail }) {
             }}
           >
             <button className="btn btn-primary">
-              <i class="custom-tag-drug-search fa-solid fa-up-right-from-square"></i>{" "}
+              <i className="custom-tag-drug-search fa-solid fa-up-right-from-square"></i>{" "}
             </button>
           </Link>
         </div>

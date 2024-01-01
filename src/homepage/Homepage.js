@@ -2,7 +2,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import Articles from "./Articles";
 import "./Article.css";
-import ChatWidget from "../chat_widget/ChatWidget";
 
 import SearchForm from "../drug_search/SearchForm";
 
@@ -20,7 +19,6 @@ function Homepage() {
         <p className="lead">For every med you take</p>
 
         <SearchForm onSearchSubmit={handleSearchSubmit} />
-
         <Articles />
       </div>
     </div>

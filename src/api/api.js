@@ -24,11 +24,6 @@ class PharmamateAPI {
     const params = method === "get" ? data : {};
 
     try {
-      console.log(`This is url`, url);
-      console.log(`This is method`, method);
-      console.log(`This is data`, data);
-      console.log(`This is params`, params);
-      console.log(`This is headers`, headers);
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
@@ -49,6 +44,13 @@ class PharmamateAPI {
   static async getCurrentUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
+  }
+
+  static async getDrugAutocomplete(searchValue) {
+    const response = await axios.get(
+      `https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name=${searchValue}`
+    );
+    return response.data;
   }
 
   static async getDrug(drug) {
@@ -74,10 +76,6 @@ class PharmamateAPI {
   // /** Save user profile page. */
 
   static async saveProfile(username, data) {
-    console.log(`This is in the API ${username}  and ${data}`);
-
-    console.log(data);
-
     let res = await this.request(`users/${username}`, data, "put");
     return res.user;
   }
@@ -85,35 +83,32 @@ class PharmamateAPI {
   // /*Get medication history
 
   static async getMedHistory(username) {
-    console.log(`I am hitting getMedHistoy route`);
     let res = await this.request(`users/${username}/med_history`);
-    console.log(`This is what i got`, res);
+
     return res.medication_history;
   }
 
   // /* Get specific medication history
 
   static async getMedById(username, medId) {
-    console.log(`I am hitting getMedById route`);
     let res = await this.request(`users/${username}/med_history/${medId}`);
-    console.log(`This is what i got`, res);
+
     return res.medication_history;
   }
 
   // /* Add medication history
 
   static async addMedHistory(username, data) {
-    console.log(`I am hitting addMedHistoy route`);
     data.stopDate = data.stopDate || null;
     let res = await this.request(`users/${username}/med_history`, data, "post");
-    console.log(`This is what i got`, res);
+
     return res.medication_history;
   }
 
   // /*Edit medication history
   static async editMedHistory(username, data, medIdNum) {
     data.stopDate = data.stopDate || null;
-    console.log(`I am hitting editMedHistory route`);
+
     let res = await this.request(
       `users/${username}/med_history/${medIdNum}`,
       data,
@@ -124,7 +119,6 @@ class PharmamateAPI {
 
   // /*Delete medication history
   static async deleteMedHistory(username, medIdNum) {
-    console.log(`I am hitting DeleteMedHistory route`);
     let res = await this.request(
       `users/${username}/med_history/${medIdNum}`,
       {},
@@ -136,27 +130,22 @@ class PharmamateAPI {
   // /*Get health journal
 
   static async getHealthJournal(username) {
-    console.log(`I am hitting getMedHistoy route`);
-
     let res = await this.request(`users/${username}/health_journal`);
     return res.health_journal;
   }
   // /* Add Health Journal
 
   static async addHealthJournal(username, data) {
-    console.log(`I am hitting addMedHistoy route`);
-
     let res = await this.request(
       `users/${username}/health_journal`,
       data,
       "post"
     );
-    console.log(`This is what i got`, res);
+
     return res.health_journal;
   }
   // /*Edit medication history
   static async editHealthJournal(username, data) {
-    console.log(`I am hitting editHealthJournal route`);
     let res = await this.request(
       `users/${username}/health_journal`,
       data,
@@ -166,7 +155,6 @@ class PharmamateAPI {
   }
   // /*Delete medication history
   static async deleteHealthJournal(username) {
-    console.log(`I am hitting DeleteMedHistory route`);
     let res = await this.request(
       `users/${username}/health_journal`,
       {},
