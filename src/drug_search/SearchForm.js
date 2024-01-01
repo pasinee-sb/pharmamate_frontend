@@ -70,6 +70,7 @@ function SearchForm({ onSearchSubmit }) {
           />
         )}
       />
+
       <button className="btn btn-lg btn-dark search-button">
         <i className="fa-solid fa-magnifying-glass magnifying"></i>
       </button>

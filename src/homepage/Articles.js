@@ -35,7 +35,7 @@ function Articles() {
     return (
       <div>
         <LoadingSpinner />
-        <i class="fa-solid fa-newspaper fa-2xl"></i>
+        <i className="fa-solid fa-newspaper fa-2xl"></i>
       </div>
     );
   }

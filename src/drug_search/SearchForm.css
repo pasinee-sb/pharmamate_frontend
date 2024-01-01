@@ -28,10 +28,6 @@
   background-color: #000;
 }
 
-.custom-autocomplete .MuiFormControl-root {
-  width: 100%;
-}
-
 /* Media query for smaller screens */
 @media (max-width: 767px) {
   .italic-placeholder::placeholder {
