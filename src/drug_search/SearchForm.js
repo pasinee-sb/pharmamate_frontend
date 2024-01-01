@@ -17,6 +17,7 @@ function SearchForm({ onSearchSubmit }) {
 
   useEffect(() => {
     // Debounce the search function
+    console.log(`this is search term`, searchTerm);
     const debouncedSearch = debounce(async (searchValue) => {
       if (searchValue.length > 2) {
         try {
@@ -37,12 +38,11 @@ function SearchForm({ onSearchSubmit }) {
     return () => debouncedSearch.cancel(); // Cancel the debounce on component unmount
   }, [searchTerm]);
 
-  const handleChange = (event, newInputValue) => {
+  const handleChange = (newInputValue) => {
     setSearchTerm(newInputValue);
   };
 
   function handleSubmit(evt) {
-    console.log(evt);
     evt.preventDefault();
     onSearchSubmit(searchTerm.trim() || undefined);
     setSearchTerm("");
@@ -50,29 +50,34 @@ function SearchForm({ onSearchSubmit }) {
 
   return (
     <div className="SearchForm mb-4 custom-autocomplete">
-      <Autocomplete
-        inputValue={searchTerm}
-        onInputChange={handleChange}
-        onChange={(event, newValue) => {
-          onSearchSubmit(
-            newValue ? encodeURIComponent(newValue.replace(/\s/g, "+")) : ""
-          );
-        }}
-        options={suggestions}
-        isOptionEqualToValue={(option, value) => option === value}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            className="form-control form-control-lg flex-grow-1 me-3 italic-placeholder "
-            name="searchTerm"
-            placeholder="Enter drug name for label information"
-          />
-        )}
-      />
+      <form onSubmit={handleSubmit}>
+        <Autocomplete
+          freeSolo
+          inputValue={searchTerm}
+          onInputChange={(event, newInputValue) => {
+            handleChange(newInputValue); // Update searchTerm state on every input change
+          }}
+          onChange={(event, newValue) => {
+            onSearchSubmit(
+              newValue ? encodeURIComponent(newValue.replace(/\s/g, "+")) : ""
+            );
+          }}
+          options={suggestions}
+          isOptionEqualToValue={(option, value) => option === value}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              className="form-control form-control-lg flex-grow-1 me-3 italic-placeholder "
+              name="searchTerm"
+              placeholder="Enter drug name for label information"
+            />
+          )}
+        />
 
-      <div className="btn btn-lg btn-dark search-button">
-        <i className="fa-solid fa-magnifying-glass magnifying"></i>
-      </div>
+        <button type="submit" className="btn btn-lg btn-dark search-button">
+          <i className="fa-solid fa-magnifying-glass magnifying"></i>
+        </button>
+      </form>
     </div>
   );
 }
