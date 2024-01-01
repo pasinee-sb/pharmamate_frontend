@@ -55,6 +55,7 @@ function SearchForm({ onSearchSubmit }) {
           freeSolo
           inputValue={searchTerm}
           onInputChange={(event, newInputValue) => {
+            console.log("this is event", event);
             handleChange(newInputValue); // Update searchTerm state on every input change
           }}
           onChange={(event, newValue) => {
