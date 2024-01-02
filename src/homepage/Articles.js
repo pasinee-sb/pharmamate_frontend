@@ -49,7 +49,7 @@ function Articles() {
   }
 
   return (
-    <div>
+    <div className="container">
       <h2 className="display-6">Today's health articles</h2>
 
       <Carousel showThumbs={false}>

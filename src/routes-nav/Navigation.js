@@ -15,7 +15,7 @@ import pharmamateImage from "../pharmamate.png";
 function Navigation({ logout }) {
   const { currentUser } = useContext(UserContext);
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-  console.debug("Navigation", "currentUser=", currentUser);
+  // console.debug("Navigation", "currentUser=", currentUser);
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
@@ -34,8 +34,7 @@ function Navigation({ logout }) {
         </li>
         <li className="nav-item ">
           <NavLink className="nav-link " to="/profile">
-            <i className="fa-regular fa-user"></i>{" "}
-            {currentUser.first_name || currentUser.username}
+            <i className="fa-regular fa-user"></i> {currentUser.username}
           </NavLink>
         </li>
         <li className="nav-item">

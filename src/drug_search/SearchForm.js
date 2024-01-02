@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import axios from "axios";
 
-import debounce from "lodash.debounce"; // Make sure to install lodash.debounce
+import debounce from "lodash.debounce";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -16,8 +16,6 @@ function SearchForm({ onSearchSubmit }) {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    // Debounce the search function
-    console.log(`this is search term`, searchTerm);
     const debouncedSearch = debounce(async (searchValue) => {
       if (searchValue.length > 2) {
         try {
@@ -55,7 +53,6 @@ function SearchForm({ onSearchSubmit }) {
           freeSolo
           inputValue={searchTerm}
           onInputChange={(event, newInputValue) => {
-            console.log("this is event", event);
             handleChange(newInputValue); // Update searchTerm state on every input change
           }}
           onChange={(event, newValue) => {
