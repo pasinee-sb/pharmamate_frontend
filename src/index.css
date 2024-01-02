@@ -1,4 +1,11 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: rgb(78, 205, 196, 0.35);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
 }

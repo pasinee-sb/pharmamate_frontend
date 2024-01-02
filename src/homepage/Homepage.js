@@ -26,10 +26,10 @@ function Homepage() {
         ) : (
           <p className="fst-italic fs-text fs-5 text">
             <a
-              className="link-offset-2 link-underline link-underline-opacity-0"
+              className="text-dark fw-bold link-offset-2 link-underline-dark "
               href="/signup"
             >
-              <span>Sign Up here </span>
+              <span>Sign Up </span>
             </a>
             to create your personalized medication profile and make life easier
             today!
