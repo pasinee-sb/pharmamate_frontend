@@ -6,6 +6,9 @@ body {
   flex-direction: column;
 }
 
-footer {
+.footer {
   margin-top: auto;
+}
+.fa-github {
+  color: black;
 }

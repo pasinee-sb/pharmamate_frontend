@@ -47,8 +47,11 @@ function SearchForm({ onSearchSubmit }) {
   }
 
   return (
-    <div className="SearchForm mb-4 custom-autocomplete">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form
+        className="SearchForm custom-autocomplete mt-5 mb-5 "
+        onSubmit={handleSubmit}
+      >
         <Autocomplete
           freeSolo
           inputValue={searchTerm}

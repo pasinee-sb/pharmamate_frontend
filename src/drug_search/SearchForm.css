@@ -1,3 +1,6 @@
+.SearchForm.custom-autocomplete {
+  position: relative;
+}
 .SearchForm input:focus {
   box-shadow: none;
   border-color: #ced4da;
@@ -17,6 +20,7 @@
 }
 
 .custom-autocomplete .search-button {
+  line-height: 2;
   position: absolute;
   right: 0;
   top: 50%;

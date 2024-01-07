@@ -4,3 +4,27 @@
   display: flex;
   align-items: center;
 }
+
+.container .container-top {
+  margin-bottom: 20%;
+}
+
+span.cta {
+  background-color: bisque;
+  opacity: 70;
+}
+
+/* Popup Container */
+div.popup-container {
+  position: fixed; /* Positioned relative to the viewport */
+  top: 20%; /* Positioned 20% from the top of the viewport */
+  left: 50%; /* Positioned at the center of the viewport horizontally */
+  transform: translate(-50%, -20%); /* Adjusts the positioning to be centered */
+  width: 80%; /* Width of the popup */
+  max-width: 600px; /* Maximum width */
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensures popup is above other elements */
+  border-radius: 10px;
+}

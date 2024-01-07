@@ -49,8 +49,8 @@ function Articles() {
   }
 
   return (
-    <div className="container">
-      <h2 className="display-6">Today's health articles</h2>
+    <div className="container mt-5">
+      <h4>Today's health articles</h4>
 
       <Carousel showThumbs={false}>
         {articleChunks.map((chunk, index) => (
