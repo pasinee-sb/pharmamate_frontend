@@ -33,7 +33,7 @@ function Articles() {
 
   if (isLoading) {
     return (
-      <div>
+      <div className="text-center">
         <LoadingSpinner />
         <i className="fa-solid fa-newspaper fa-2xl"></i>
       </div>
