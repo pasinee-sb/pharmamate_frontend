@@ -47,10 +47,9 @@ class PharmamateAPI {
   }
 
   static async getDrugAutocomplete(searchValue) {
-    const response = await axios.get(
-      `https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name=${searchValue}`
-    );
-    return response.data;
+    const response = await this.request("autocomplete", { searchValue });
+
+    return response;
   }
 
   static async getDrug(drug) {

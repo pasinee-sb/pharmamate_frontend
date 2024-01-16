@@ -20,7 +20,8 @@ function SearchForm({ onSearchSubmit }) {
       if (searchValue.length > 2) {
         try {
           const response = await PharmamateAPI.getDrugAutocomplete(searchValue);
-          setSuggestions(response.data.map((d) => d.drug_name));
+          let autocompleteArray = response.response.map((d) => d.drug_name);
+          setSuggestions(autocompleteArray);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
